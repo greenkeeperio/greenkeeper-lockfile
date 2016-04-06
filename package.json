@@ -1,0 +1,34 @@
+{
+  "name": "greenkeeper-shrinkwrap",
+  "description": "Your shrinkwrap, up to date, all the time",
+  "version": "0.0.0",
+  "author": "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
+  "bin": {
+    "greenkeeper-shrinkwrap": "index.js",
+    "greenkeeper-shrinkwrap-update": "update.js",
+    "greenkeeper-shrinkwrap-upload": "upload.js"
+  },
+  "bugs": {
+    "url": "https://github.com/greenkeeperio/greenkeeper-shrinkwrap/issues"
+  },
+  "dependencies": {
+    "github-slug": "^1.1.0",
+    "lodash": "^4.8.2",
+    "require-relative": "^0.8.7",
+    "run-series": "^1.1.4",
+    "semver": "^5.1.0"
+  },
+  "devDependencies": {
+    "standard": "^6.0.8"
+  },
+  "homepage": "http://greenkeeper.io",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greenkeeperio/greenkeeper-shrinkwrap.git"
+  },
+  "scripts": {
+    "test": "standard"
+  }
+}
