@@ -47,5 +47,5 @@ before_script:
 ## How does it work
 
 1. This script detects whether it's running on a Greenkeeper created branch
-2. If so it updates the shrinkwrap file with the latest version of the updated dependency
+2. If so, it updates the shrinkwrap file with the latest version of the updated dependency
 3. It pushes the commit with the updated shrinkwrap file back to the Greenkeeper branch/pull request
