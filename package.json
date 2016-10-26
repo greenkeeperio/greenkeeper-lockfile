@@ -12,14 +12,14 @@
     "url": "https://github.com/greenkeeperio/greenkeeper-shrinkwrap/issues"
   },
   "dependencies": {
-    "github-slug": "^1.1.0",
+    "github-slug": "^2.0.0",
     "lodash": "^4.8.2",
     "require-relative": "^0.8.7",
     "run-series": "^1.1.4",
     "semver": "^5.1.0"
   },
   "devDependencies": {
-    "standard": "^6.0.8"
+    "standard": "^8.5.0"
   },
   "homepage": "http://greenkeeper.io",
   "license": "Apache-2.0",
