@@ -1,6 +1,6 @@
 # greenkeeper-shrinkwrap
 
-> Enabling shrinkwrap support for Greenkeeper
+> Enabling shrinkwrap support for Greenkeeper via Travis CI
 
 [![Build Status](https://travis-ci.org/greenkeeperio/greenkeeper-shrinkwrap.svg?branch=master)](https://travis-ci.org/greenkeeperio/greenkeeper-shrinkwrap)
 [![Dependency Status](https://david-dm.org/greenkeeperio/greenkeeper-shrinkwrap/master.svg)](https://david-dm.org/greenkeeperio/greenkeeper-shrinkwrap/master)
@@ -14,34 +14,35 @@
 
 After [enabling Greenkeeper for your repository](https://github.com/greenkeeperio/greenkeeper#getting-started-with-greenkeeper) you can use this package to make it work with shrinkwrapped projects.
 
-1. [Create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to your CI server's environment as `GH_TOKEN`.
+1. [Create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to Travis CI's environment as `GH_TOKEN`.
 
-2. Configure your CI server to run `greenkeeper-shrinkwrap` right after it `npm install`ed your dependencies.
+1. Add `greenkeeper-shrinkwrap` to your project as a devDependency. `npm install --save-dev greenkeeper-shrinkwrap`
+
+1. Configure Travis CI to run `greenkeeper-shrinkwrap-update` right before it `npm install`s your dependencies.
 
   ```yml
-  # Travis CI example
-  before_script:
-    - npm install -g greenkeeper-shrinkwrap
-    - greenkeeper-shrinkwrap
+  before_install: greenkeeper-shrinkwrap-update
+  ```
+
+1. Configure Travis CI to run `greenkeeper-shrinkwrap-upload` right after it executed your tests.
+
+  ```yml
+  after_script: greenkeeper-shrinkwrap-update
   ```
 
 That's it.
 
 ### Testing multiple node versions
 
-For example on Travis CI it is common to test multiple node versions and therefor have multiple test runs. In this case you should still update the shrinkwrap file for every build job, but only upload it once.
-This is why these two steps are available as individual commands: `greenkeeper-shrinkwrap-update` and `greenkeeper-shrinkwrap-upload`.
+It is common to test multiple node versions and therefor have multiple test jobs for one build. In this case the shrinkwrap will automatically be updated for every job, but only uploaded for the first one.
 
 ```yml
-# Travis CI example
 node_js:
+  - 6
   - 4
-  - 5
-before_script:
-  - npm install -g greenkeeper-shrinkwrap
-  - greenkeeper-shrinkwrap-update
-  # This will only run on the node version 4 job
-  - if [[ $TRAVIS_JOB_NUMBER = "${TRAVIS_BUILD_NUMBER}.1" ]]; then greenkeeper-shrinkwrap-upload; fi
+before_install: greenkeeper-shrinkwrap-update
+# Only the node version 6 job will upload the shrinkwrap
+after_script: greenkeeper-shrinkwrap-upload
 ```
 
 ## How does it work

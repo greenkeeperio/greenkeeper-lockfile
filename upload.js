@@ -1,31 +1,18 @@
 #!/usr/bin/env node
 
-var exec = require('child_process').exec
+const exec = require('child_process').execSync
 
-var _ = require('lodash')
-var series = require('run-series')
-var slug = require('github-slug')
+const env = process.env
 
-var token = process.env.GH_TOKEN
+module.exports = function upload () {
+  if (!env.TRAVIS_JOB_NUMBER.endsWith('.1')) return console.error('Only running on first build job')
 
-module.exports = function () {
-  if (!token) throw new Error('GitHub token required.')
+  if (!env.GH_TOKEN) throw new Error('Please provide a GitHub token as "GH_TOKEN" environment variable')
 
-  series([
-    function (callback) {
-      slug('./', function (err, slug) {
-        if (err) return callback(err)
-        exec('git remote set gk-origin https://' + token + '@github.com/' + slug, callback)
-      })
-    },
-    _.partial(exec, 'git config user.email "support@greenkeeper.io"'),
-    _.partial(exec, 'git config user.name "greenkeeperio-bot"'),
-    _.partial(exec, 'git push gk-origin HEAD --force')
-  ], function (err) {
-    if (err) throw err
-
-    console.log('shrinkwrap file successfully uploaded')
-  })
+  exec(`git remote set gk-origin https://${env.GH_TOKEN}@github.com/${env.TRAVIS_REPO_SLUG}`)
+  exec('git config user.email "support@greenkeeper.io"')
+  exec('git config user.name "greenkeeperio[bot]"')
+  exec(`git push gk-origin HEAD:${env.TRAVIS_BRANCH} --force`)
 }
 
 if (require.main === module) module.exports()

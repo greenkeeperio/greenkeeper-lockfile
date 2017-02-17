@@ -1,46 +1,47 @@
 #!/usr/bin/env node
 
-var exec = require('child_process').exec
-var fs = require('fs')
+const fs = require('fs')
 
-var relative = require('require-relative')
+const relative = require('require-relative')
 
-var extractDependency = require('./lib/extract-dependency')
-var updateShrinkwrap = require('./lib/update-shrinkwrap')
+const extractDependency = require('./lib/extract-dependency')
+const updateShrinkwrap = require('./lib/update-shrinkwrap')
 
-var pkg = relative('./package.json')
+const pkg = relative('./package.json')
 
-module.exports = function (callback) {
+const env = process.env
+
+module.exports = function update () {
   try {
     fs.readFileSync('./npm-shrinkwrap.json')
   } catch (e) {
-    console.error('Without a shrinkwrap file present there is no need to run this script.')
-    process.exit(1)
+    throw new Error('Without a shrinkwrap file present there is no need to run this script.')
   }
 
-  exec('git log -1 --pretty=%B', function (err, commitMessage) {
-    if (err) throw err
+  if (env.TRAVIS !== 'true') {
+    throw new Error('This script hast to run in an Travis CI environment')
+  }
 
-    if (/shrinkwrap updated/mig.test(commitMessage)) {
-      console.error('Nothing to do, shrinkwrap already updated.')
-      process.exit(0)
-    }
+  if (env.TRAVIS_PULL_REQUEST !== 'false') {
+    return console.error('This script needs to run in a branch build, not a PR')
+  }
 
-    extractDependency(pkg, function (err, dependency) {
-      // these are expected failures
-      if (err) {
-        console.error(err.message)
-        process.exit(0)
-      }
+  const commitMessage = env.TRAVIS_COMMIT_MESSAGE
 
-      updateShrinkwrap(dependency, commitMessage, function (err) {
-        if (err) throw err
+  if (/shrinkwrap updated/mig.test(commitMessage)) {
+    return console.error('Nothing to do, shrinkwrap already updated.')
+  }
 
-        console.log('shrinkwrap file successfully updated')
-        callback && callback()
-      })
-    })
-  })
+  try {
+    var dependency = extractDependency(pkg, env.TRAVIS_BRANCH)
+  } catch (err) {
+    // these are expected failures
+    return console.error(err.message)
+  }
+
+  updateShrinkwrap(dependency, commitMessage)
+
+  console.log('Shrinkwrap file updated')
 }
 
 if (require.main === module) module.exports()
