@@ -17,12 +17,12 @@ After [enabling Greenkeeper for your repository](https://github.com/greenkeeperi
 
 1. [Create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to Travis CI's environment as `GH_TOKEN`.
 
-1. Add `greenkeeper-shrinkwrap` to your project as a devDependency. `npm install --save-dev greenkeeper-shrinkwrap`
-
 1. Configure Travis CI to run `greenkeeper-shrinkwrap-update` right before it `npm install`s your dependencies.
 
   ```yml
-  before_install: greenkeeper-shrinkwrap-update
+  before_install:
+  - npm install -g greenkeeper-shrinkwrap
+  - greenkeeper-shrinkwrap-update
   ```
 
 1. Configure Travis CI to run `greenkeeper-shrinkwrap-upload` right after it executed your tests.
@@ -41,7 +41,9 @@ It is common to test multiple node versions and therefor have multiple test jobs
 node_js:
   - 6
   - 4
-before_install: greenkeeper-shrinkwrap-update
+before_install:
+- npm install -g greenkeeper-shrinkwrap
+- greenkeeper-shrinkwrap-update
 # Only the node version 6 job will upload the shrinkwrap
 after_script: greenkeeper-shrinkwrap-upload
 ```
