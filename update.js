@@ -29,7 +29,7 @@ module.exports = function update () {
 
   const commitMessage = env.TRAVIS_COMMIT_MESSAGE
 
-  if (/shrinkwrap updated/mig.test(commitMessage)) {
+  if (/updated npm-shrinkwrap\.json/mig.test(commitMessage)) {
     return console.error('Nothing to do, shrinkwrap already updated.')
   }
 

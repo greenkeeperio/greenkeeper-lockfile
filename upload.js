@@ -18,12 +18,12 @@ module.exports = function upload () {
 
   if (env.TRAVIS_BRANCH === (branchPrefix + 'initial')) return console.error('Not a Greenkeeper update pull request.')
 
-  if (/shrinkwrap updated/mig.test(env.TRAVIS_COMMIT_MESSAGE)) return console.error('Nothing to do, shrinkwrap already updated.')
+  if (/updated npm-shrinkwrap\.json/mig.test(env.TRAVIS_COMMIT_MESSAGE)) return console.error('Nothing to do, shrinkwrap already updated.')
 
   if (!env.TRAVIS_JOB_NUMBER.endsWith('.1')) return console.error('Only running on first build job')
 
   exec(`git remote add gk-origin https://${env.GH_TOKEN}@github.com/${env.TRAVIS_REPO_SLUG}`)
-  exec(`git push gk-origin HEAD:${env.TRAVIS_BRANCH} --force`)
+  exec(`git push gk-origin HEAD:${env.TRAVIS_BRANCH}`)
 }
 
 if (require.main === module) module.exports()
