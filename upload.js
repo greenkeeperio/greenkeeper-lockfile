@@ -15,6 +15,7 @@ module.exports = function upload () {
   const branchPrefix = config.branchPrefix || 'greenkeeper/'
 
   if (!env.TRAVIS_BRANCH.startsWith(branchPrefix)) return console.error('Not a Greenkeeper pull request.')
+  if (env.TRAVIS_BRANCH === (branchPrefix + 'initial')) return console.error('Not a Greenkeeper update pull request.')
 
   if (!env.TRAVIS_JOB_NUMBER.endsWith('.1')) return console.error('Only running on first build job')
 
