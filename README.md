@@ -21,6 +21,9 @@ After [enabling Greenkeeper for your repository](https://github.com/greenkeeperi
 
   ```yml
   before_install:
+  # Note that this plugin uses the installed npm's built-in mechanism to update the shrinkwrap
+  # Therefor it is advisable to use latest npm, as there are quite some shrinkwrap fixes in there
+  - npm install -g npm
   - npm install -g greenkeeper-shrinkwrap
   - greenkeeper-shrinkwrap-update
   ```
@@ -42,6 +45,7 @@ node_js:
   - 6
   - 4
 before_install:
+- npm install -g npm
 - npm install -g greenkeeper-shrinkwrap@1
 - greenkeeper-shrinkwrap-update
 # Only the node version 6 job will upload the shrinkwrap
