@@ -42,7 +42,7 @@ node_js:
   - 6
   - 4
 before_install:
-- npm install -g greenkeeper-shrinkwrap
+- npm install -g greenkeeper-shrinkwrap@1
 - greenkeeper-shrinkwrap-update
 # Only the node version 6 job will upload the shrinkwrap
 after_script: greenkeeper-shrinkwrap-upload
