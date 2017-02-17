@@ -2,6 +2,8 @@
 
 const exec = require('child_process').execSync
 
+const relative = require('require-relative')
+
 const pkg = relative('./package.json')
 
 const env = process.env
