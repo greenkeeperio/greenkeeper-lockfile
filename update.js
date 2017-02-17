@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const exec = require('child_process').execSync
 const fs = require('fs')
 
 const relative = require('require-relative')
