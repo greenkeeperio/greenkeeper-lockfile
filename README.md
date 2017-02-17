@@ -31,7 +31,7 @@ After [enabling Greenkeeper for your repository](https://github.com/greenkeeperi
 1. Configure Travis CI to run `greenkeeper-shrinkwrap-upload` right after it executed your tests.
 
   ```yml
-  after_script: greenkeeper-shrinkwrap-update
+  after_script: greenkeeper-shrinkwrap-upload
   ```
 
 That's it.
