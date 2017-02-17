@@ -1,9 +1,8 @@
 # greenkeeper-shrinkwrap
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/greenkeeperio/greenkeeper-shrinkwrap.svg)](https://greenkeeper.io/)
-
 > Enabling shrinkwrap support for Greenkeeper via Travis CI
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/greenkeeperio/greenkeeper-shrinkwrap.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/greenkeeperio/greenkeeper-shrinkwrap.svg?branch=master)](https://travis-ci.org/greenkeeperio/greenkeeper-shrinkwrap)
 [![Dependency Status](https://david-dm.org/greenkeeperio/greenkeeper-shrinkwrap/master.svg)](https://david-dm.org/greenkeeperio/greenkeeper-shrinkwrap/master)
 [![devDependency Status](https://david-dm.org/greenkeeperio/greenkeeper-shrinkwrap/master/dev-status.svg)](https://david-dm.org/greenkeeperio/greenkeeper-shrinkwrap/master#info=devDependencies)

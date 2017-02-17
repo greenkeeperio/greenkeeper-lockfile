@@ -16,7 +16,8 @@
     "semver": "^5.3.0"
   },
   "devDependencies": {
-    "standard": "^8.6.0"
+    "standard": "^8.6.0",
+    "semantic-release": "^6.3.2"
   },
   "engines": {
     "node": ">=4"
@@ -25,9 +26,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/greenkeeperio/greenkeeper-shrinkwrap.git"
+    "url": "https://github.com/greenkeeperio/greenkeeper-shrinkwrap.git"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }
