@@ -24,7 +24,7 @@ After [enabling Greenkeeper for your repository](https://github.com/greenkeeperi
   # Note that this plugin uses the installed npm's built-in mechanism to update the shrinkwrap
   # Therefor it is advisable to use latest npm, as there are quite some shrinkwrap fixes in there
   - npm install -g npm
-  - npm install -g greenkeeper-shrinkwrap
+  - npm install -g greenkeeper-shrinkwrap@1
   - greenkeeper-shrinkwrap-update
   ```
 
