@@ -3,14 +3,14 @@
 const exec = require('child_process').execSync
 const fs = require('fs')
 
+const _ = require('lodash')
 const relative = require('require-relative')
 
 const extractDependency = require('./lib/extract-dependency')
 const updateShrinkwrap = require('./lib/update-shrinkwrap')
+const getValuesFromCI = require('./lib/get-values-from-ci')
 
 const pkg = relative('./package.json')
-
-const env = process.env
 
 module.exports = function update () {
   try {
@@ -19,22 +19,26 @@ module.exports = function update () {
     throw new Error('Without a shrinkwrap file present there is no need to run this script.')
   }
 
-  if (env.TRAVIS !== 'true') {
-    throw new Error('This script hast to run in an Travis CI environment')
+  const ciValues = getValuesFromCI()
+
+  if (_.isEmpty(ciValues)) {
+    throw new Error('This script must be run in a supported CI environment')
   }
 
-  if (env.TRAVIS_PULL_REQUEST !== 'false') {
+  const isPullRequest = _.get(ciValues, 'isPullRequest', false)
+  const commitMessage = _.get(ciValues, 'commitMessage', '')
+  const gitBranchName = _.get(ciValues, 'gitBranchName', '')
+
+  if (isPullRequest) {
     return console.error('This script needs to run in a branch build, not a PR')
   }
-
-  const commitMessage = env.TRAVIS_COMMIT_MESSAGE
 
   if (/update npm-shrinkwrap\.json/mig.test(commitMessage)) {
     return console.error('Nothing to do, shrinkwrap already updated.')
   }
 
   try {
-    var dependency = extractDependency(pkg, env.TRAVIS_BRANCH)
+    var dependency = extractDependency(pkg, gitBranchName)
   } catch (err) {
     // these are expected failures
     return console.error(err.message)

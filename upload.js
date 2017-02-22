@@ -2,9 +2,11 @@
 
 const exec = require('child_process').execSync
 
+const _ = require('lodash')
 const relative = require('require-relative')
 
 const pkg = relative('./package.json')
+const getValuesFromCI = require('./lib/get-values-from-ci')
 
 const env = process.env
 
@@ -14,16 +16,27 @@ module.exports = function upload () {
   const config = pkg.greenkeeper || {}
   const branchPrefix = config.branchPrefix || 'greenkeeper/'
 
-  if (!env.TRAVIS_BRANCH.startsWith(branchPrefix)) return console.error('Not a Greenkeeper pull request.')
+  const ciValues = getValuesFromCI()
 
-  if (env.TRAVIS_BRANCH === (branchPrefix + 'initial')) return console.error('Not a Greenkeeper update pull request.')
+  if (_.isEmpty(ciValues)) {
+    throw new Error('This script must be run in a supported CI environment')
+  }
 
-  if (/update npm-shrinkwrap\.json/mig.test(env.TRAVIS_COMMIT_MESSAGE)) return console.error('Nothing to do, shrinkwrap already updated.')
+  const commitMessage = _.get(ciValues, 'commitMessage', '')
+  const gitBranchName = _.get(ciValues, 'gitBranchName', '')
+  const shouldUpload = _.get(ciValues, 'shouldUpload', false)
+  const githubRepoSlug = _.get(ciValues, 'githubRepoSlug', false)
 
-  if (!env.TRAVIS_JOB_NUMBER.endsWith('.1')) return console.error('Only running on first build job')
+  if (!gitBranchName.startsWith(branchPrefix)) return console.error('Not a Greenkeeper branch.')
 
-  exec(`git remote add gk-origin https://${env.GH_TOKEN}@github.com/${env.TRAVIS_REPO_SLUG}`)
-  exec(`git push gk-origin HEAD:${env.TRAVIS_BRANCH}`)
+  if (gitBranchName === (branchPrefix + 'initial')) return console.error('Not a Greenkeeper update branch.')
+
+  if (/update npm-shrinkwrap\.json/mig.test(commitMessage)) return console.error('Nothing to do, shrinkwrap already updated.')
+
+  if (!shouldUpload) return console.error('Only running on first build job')
+
+  exec(`git remote add gk-origin https://${env.GH_TOKEN}@github.com/${githubRepoSlug}`)
+  exec(`git push gk-origin HEAD:${gitBranchName}`)
 }
 
 if (require.main === module) module.exports()
