@@ -2,24 +2,21 @@
 
 const exec = require('child_process').execSync
 
-const relative = require('require-relative')
-
-const pkg = relative('./package.json')
+const config = require('./lib/config')
 
 const env = process.env
 
 module.exports = function upload () {
-  if (!env.GH_TOKEN) throw new Error('Please provide a GitHub token as "GH_TOKEN" environment variable')
-
-  const config = pkg.greenkeeper || {}
-  const branchPrefix = config.branchPrefix || 'greenkeeper/'
-
-  if (!env.TRAVIS_BRANCH.startsWith(branchPrefix)) {
-    return console.error('Not a Greenkeeper pull request.')
+  if (!env.GH_TOKEN) {
+    throw new Error('Please provide a GitHub token as "GH_TOKEN" environment variable')
   }
 
-  if (env.TRAVIS_BRANCH === (branchPrefix + 'initial')) {
-    return console.error('Not a Greenkeeper update pull request.')
+  if (!env.TRAVIS_BRANCH.startsWith(config.branchPrefix)) {
+    return console.error('Not a Greenkeeper branch')
+  }
+
+  if (env.TRAVIS_BRANCH === (config.branchPrefix + 'initial')) {
+    return console.error('Not a Greenkeeper update pull request')
   }
 
   if (env.TRAVIS_COMMIT_RANGE) {
