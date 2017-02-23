@@ -18,7 +18,7 @@ module.exports = function upload () {
 
   if (env.TRAVIS_BRANCH === (branchPrefix + 'initial')) return console.error('Not a Greenkeeper update pull request.')
 
-  if (/update npm-shrinkwrap\.json/mig.test(env.TRAVIS_COMMIT_MESSAGE)) return console.error('Nothing to do, shrinkwrap already updated.')
+  if (env.TRAVIS_COMMIT_RANGE) return console.error('Only running on first push of a new branch')
 
   if (!env.TRAVIS_JOB_NUMBER.endsWith('.1')) return console.error('Only running on first build job')
 

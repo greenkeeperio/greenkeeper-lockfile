@@ -16,7 +16,7 @@ module.exports = function update () {
   try {
     fs.readFileSync('./npm-shrinkwrap.json')
   } catch (e) {
-    throw new Error('Without a shrinkwrap file present there is no need to run this script.')
+    throw new Error('Without a shrinkwrap file present there is no need to run this script')
   }
 
   if (env.TRAVIS !== 'true') {
@@ -27,10 +27,8 @@ module.exports = function update () {
     return console.error('This script needs to run in a branch build, not a PR')
   }
 
-  const commitMessage = env.TRAVIS_COMMIT_MESSAGE
-
-  if (/update npm-shrinkwrap\.json/mig.test(commitMessage)) {
-    return console.error('Nothing to do, shrinkwrap already updated.')
+  if (env.TRAVIS_COMMIT_RANGE) {
+    return console.error('Only running on first push of a new branch')
   }
 
   try {
@@ -43,7 +41,7 @@ module.exports = function update () {
   exec('git config user.email "support@greenkeeper.io"')
   exec('git config user.name "greenkeeperio[bot]"')
 
-  updateShrinkwrap(dependency, commitMessage)
+  updateShrinkwrap(dependency, env.TRAVIS_COMMIT_MESSAGE)
 
   console.log('Shrinkwrap file updated')
 }
