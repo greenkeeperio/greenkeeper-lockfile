@@ -38,9 +38,6 @@ module.exports = function update () {
     return console.error(err.message)
   }
 
-  exec('git config user.email "support@greenkeeper.io"')
-  exec('git config user.name "greenkeeperio[bot]"')
-
   updateShrinkwrap(dependency, env.TRAVIS_COMMIT_MESSAGE)
 
   console.log('Shrinkwrap file updated')
