@@ -26,12 +26,12 @@ module.exports = function update () {
     return console.error('This script needs to run in a branch build, not a PR')
   }
 
-  if (env.TRAVIS_COMMIT_RANGE) {
-    return console.error('Only running on first push of a new branch')
-  }
-
   if (!env.TRAVIS_BRANCH.startsWith(config.branchPrefix)) {
     return console.error('Not a Greenkeeper branch')
+  }
+
+  if (env.TRAVIS_COMMIT_RANGE) {
+    return console.error('Only running on first push of a new branch')
   }
 
   const dependency = extractDependency(pkg, config.branchPrefix, env.TRAVIS_BRANCH)
