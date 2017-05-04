@@ -13,13 +13,18 @@ const env = process.env
 
 module.exports = function update () {
   try {
-    fs.readFileSync('./npm-shrinkwrap.json')
-  } catch (e) {
-    throw new Error('Without a shrinkwrap file present there is no need to run this script')
+    var shrinkwrap = fs.readFileSync('./npm-shrinkwrap.json')
+  } catch (e) {}
+  try {
+    var packageLock = fs.readFileSync('./package-lock.json')
+  } catch (e) {}
+
+  if (!(shrinkwrap || packageLock)) {
+    throw new Error('Without either an npm-shrinkwrap or package-lock file present there is no need to run this script')
   }
 
   if (env.TRAVIS !== 'true') {
-    throw new Error('This script hast to run in an Travis CI environment')
+    throw new Error('This script has to run in an Travis CI environment')
   }
 
   if (env.TRAVIS_PULL_REQUEST !== 'false') {
