@@ -42,12 +42,12 @@ module.exports = function update () {
   const dependency = extractDependency(pkg, config.branchPrefix, env.TRAVIS_BRANCH)
 
   if (!dependency) {
-    return console.error('No dependency changed.')
+    return console.error('No dependency changed')
   }
 
   updateShrinkwrap(dependency, env.TRAVIS_COMMIT_MESSAGE)
 
-  console.log('Shrinkwrap file updated')
+  console.log('Lockfile updated')
 }
 
 if (require.main === module) module.exports()
