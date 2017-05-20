@@ -13,39 +13,48 @@
 
 ## Setup
 
-After [enabling Greenkeeper for your repository](https://github.com/greenkeeperio/greenkeeper#getting-started-with-greenkeeper) you can use this package to make it work with lockfiles.
+After [enabling Greenkeeper for your repository](https://github.com/greenkeeperio/greenkeeper#getting-started-with-greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
 
-1. [Create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to Travis CI's environment as `GH_TOKEN`.
+**First [create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to Travis CI's environment as `GH_TOKEN`**.
 
-1. Configure Travis CI to use the npm version you want your lockfiles to be generated with before it `npm install`s your dependencies.
+Configure Travis CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
 
-  ```yml
-  before_install:
-  # It is advisable to use latest npm, as there are a lot of lockfile changes/fixes in there
-  - npm install -g npm
-  ```
+Configure Travis CI to run `greenkeeper-lockfile-update` right before it executes your tests and `greenkeeper-lockfile-upload` right after it executed your tests.
 
-1. Install `greenkeeper-lockfile` as well.
 
-  ```yml
-  before_install:
-  - npm install -g npm
-  - npm install -g greenkeeper-lockfile@1
-  ```
+This is how it works for the different package managers.
 
-1. Configure Travis CI to run `greenkeeper-lockfile-update` right before it executes your tests.
+### npm
 
-  ```yml
-  before_script: greenkeeper-lockfile-update
-  ```
+```yml
+before_install:
+# It is advisable to use at least npm@4, as there are a lot of shrinkwrap fixes in there
+- npm install -g npm
+- npm install -g greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
+```
 
-1. Configure Travis CI to run `greenkeeper-lockfile-upload` right after it executed your tests.
+### npm5 (during beta)
 
-  ```yml
-  after_script: greenkeeper-lockfile-upload
-  ```
+```yml
+before_install:
+- npm i -g npm5
+- npm5 i -g greenkeeper-lockfile@1
+install: npm5 install
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
+```
 
-### Testing multiple node versions
+### yarn
+
+```yml
+before_install: yarn global add greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
+```
+
+## Testing multiple node versions
 
 It is common to test multiple node versions and therefor have multiple test jobs for one build. In this case the lockfile will automatically be updated for every job, but only uploaded for the first one.
 
