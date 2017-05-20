@@ -7,7 +7,6 @@
   "bin": {
     "greenkeeper-lockfile-update": "update.js",
     "greenkeeper-lockfile-upload": "upload.js",
-    "//": "kept for backwards compat",
     "greenkeeper-shrinkwrap-update": "update.js",
     "greenkeeper-shrinkwrap-upload": "upload.js"
   },
