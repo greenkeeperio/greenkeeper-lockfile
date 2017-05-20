@@ -18,13 +18,18 @@ module.exports = function update () {
   try {
     var packageLock = fs.readFileSync('./package-lock.json')
   } catch (e) {}
+  try {
+    var yarnLock = fs.readFileSync('./yarn.lock')
+  } catch (e) {}
 
-  if (!(shrinkwrap || packageLock)) {
-    throw new Error('Without either an npm-shrinkwrap or package-lock file present there is no need to run this script')
+  if (!(shrinkwrap || packageLock || yarnLock)) {
+    return console.error(
+      'Without either an "npm-shrinkwrap.json", "package-lock.json" or "yarn.lock" file present there is no need to run this script'
+    )
   }
 
   if (env.TRAVIS !== 'true') {
-    throw new Error('This script has to run in an Travis CI environment')
+    return console.error('This script has to run in a Travis CI environment')
   }
 
   if (env.TRAVIS_PULL_REQUEST !== 'false') {
@@ -45,7 +50,9 @@ module.exports = function update () {
     return console.error('No dependency changed')
   }
 
-  updateLockfile(dependency, env.TRAVIS_COMMIT_MESSAGE)
+  updateLockfile(dependency, env.TRAVIS_COMMIT_MESSAGE, {
+    yarn: !!yarnLock
+  })
 
   console.log('Lockfile updated')
 }
