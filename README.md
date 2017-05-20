@@ -1,6 +1,6 @@
 # greenkeeper-lockfile
 
-> Enabling lockfile support for Greenkeeper via Travis CI
+> Enabling lockfile support for Greenkeeper via your own CI
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/greenkeeperio/greenkeeper-lockfile.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/greenkeeperio/greenkeeper-lockfile.svg?branch=master)](https://travis-ci.org/greenkeeperio/greenkeeper-lockfile)
@@ -11,18 +11,29 @@
 
 [![NPM](https://nodei.co/npm/greenkeeper-lockfile.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/greenkeeper-lockfile/)
 
+## Package Managers
+
+* ✅ npm
+* ✅ npm5
+* ✅ yarn
+
+## CI Services
+
+* ✅ Travis CI
+* 🙏 [Contribute your own](#contributing-a-ci-service)
+
 ## Setup
 
-After [enabling Greenkeeper for your repository](https://github.com/greenkeeperio/greenkeeper#getting-started-with-greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
+After [enabling Greenkeeper for your repository](https://github.com/integration/greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
 
-**First [create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to Travis CI's environment as `GH_TOKEN`**.
+**First [create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to your CI's environment as `GH_TOKEN`**.
 
-Configure Travis CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
+Configure your CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
 
-Configure Travis CI to run `greenkeeper-lockfile-update` right before it executes your tests and `greenkeeper-lockfile-upload` right after it executed your tests.
+Configure your CI to run `greenkeeper-lockfile-update` right before it executes your tests and `greenkeeper-lockfile-upload` right after it executed your tests.
 
 
-This is how it works for the different package managers.
+This is how it works on Travis CI for the different package managers.
 
 ### npm
 
@@ -69,6 +80,27 @@ before_script: greenkeeper-lockfile-update
 # Only the node version 6 job will upload the lockfile
 after_script: greenkeeper-lockfile-upload
 ```
+
+## Contributing a CI Service
+
+### Environment information
+
+In order to support a CI service this package needs to extract some information from the environment.
+
+* **repoSlug** The GitHub repo slug e.g. `greenkeeper/greenkeeper-lockfile`
+* **branchName** The name of the current branch e.g. `greenkeeper/lodash-4.0.0`
+* **commitMessage** The commit message of the last commit on the current branch e.g. `fix(package): update lodash to version 4.0.0`
+* **firstPush** Is this the first push on this branch i.e. the Greenkeeper commit
+* **correctBuild** Is this a regular build (not a pull request for example)
+* **uploadBuild** Should the lockfile be uploaded from this build (relevant for testing multiple node versions)
+
+Have a look at our [Travis CI reference implementation](ci-services/travis.js).
+
+### Detecting your service
+
+Write a test that returns whether this package runs in your CI service’s environment and add it to our [ci-services/tests](ci-services/tests.js).
+
+**We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top if this file.**
 
 ## How does it work
 
