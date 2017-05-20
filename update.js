@@ -7,9 +7,9 @@ const relative = require('require-relative')
 const config = require('./lib/config')
 const extractDependency = require('./lib/extract-dependency')
 const updateLockfile = require('./lib/update-lockfile')
+const info = require('./ci-services')()
 
 const pkg = relative('./package.json')
-const env = process.env
 
 module.exports = function update () {
   try {
@@ -28,29 +28,25 @@ module.exports = function update () {
     )
   }
 
-  if (env.TRAVIS !== 'true') {
-    return console.error('This script has to run in a Travis CI environment')
+  if (!info.correctBuild) {
+    return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
   }
 
-  if (env.TRAVIS_PULL_REQUEST !== 'false') {
-    return console.error('This script needs to run in a branch build, not a PR')
-  }
-
-  if (!env.TRAVIS_BRANCH.startsWith(config.branchPrefix)) {
+  if (!info.branchName.startsWith(config.branchPrefix)) {
     return console.error('Not a Greenkeeper branch')
   }
 
-  if (env.TRAVIS_COMMIT_RANGE) {
+  if (!info.firstPush) {
     return console.error('Only running on first push of a new branch')
   }
 
-  const dependency = extractDependency(pkg, config.branchPrefix, env.TRAVIS_BRANCH)
+  const dependency = extractDependency(pkg, config.branchPrefix, info.branchName)
 
   if (!dependency) {
     return console.error('No dependency changed')
   }
 
-  updateLockfile(dependency, env.TRAVIS_COMMIT_MESSAGE, {
+  updateLockfile(dependency, info.commitMessage, {
     yarn: !!yarnLock
   })
 
