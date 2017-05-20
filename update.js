@@ -6,7 +6,7 @@ const relative = require('require-relative')
 
 const config = require('./lib/config')
 const extractDependency = require('./lib/extract-dependency')
-const updateShrinkwrap = require('./lib/update-shrinkwrap')
+const updateLockfile = require('./lib/update-lockfile')
 
 const pkg = relative('./package.json')
 const env = process.env
@@ -45,7 +45,7 @@ module.exports = function update () {
     return console.error('No dependency changed')
   }
 
-  updateShrinkwrap(dependency, env.TRAVIS_COMMIT_MESSAGE)
+  updateLockfile(dependency, env.TRAVIS_COMMIT_MESSAGE)
 
   console.log('Lockfile updated')
 }
