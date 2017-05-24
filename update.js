@@ -46,7 +46,7 @@ module.exports = function update () {
     return console.error('No dependency changed')
   }
 
-  updateLockfile(dependency, info.commitMessage, {
+  updateLockfile(dependency, {
     yarn: !!yarnLock
   })
 

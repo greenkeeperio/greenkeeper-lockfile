@@ -20,6 +20,7 @@
 ## CI Services
 
 * ✅ Travis CI
+* ✅ Circle CI _Thank you [@ethanrubio](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/18) 👏_
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
@@ -95,7 +96,6 @@ In order to support a CI service this package needs to extract some information 
 
 * **repoSlug** The GitHub repo slug e.g. `greenkeeper/greenkeeper-lockfile`
 * **branchName** The name of the current branch e.g. `greenkeeper/lodash-4.0.0`
-* **commitMessage** The commit message of the last commit on the current branch e.g. `fix(package): update lodash to version 4.0.0`
 * **firstPush** Is this the first push on this branch i.e. the Greenkeeper commit
 * **correctBuild** Is this a regular build (not a pull request for example)
 * **uploadBuild** Should the lockfile be uploaded from this build (relevant for testing multiple node versions)
@@ -105,5 +105,14 @@ Have a look at our [Travis CI reference implementation](ci-services/travis.js).
 ### Detecting your service
 
 Write a test that returns whether this package runs in your CI service’s environment and add it to our [ci-services/tests](ci-services/tests.js).
+
+### Testing your service
+
+In order to test this plugin with your own CI service install your fork directly from git.
+
+```diff
++ npm i -g you/greenkeeper-lockfile#my-ci
+- npm i -g greenkeeper-lockfile@1
+```
 
 **We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top if this file.**
