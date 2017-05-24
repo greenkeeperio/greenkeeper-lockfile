@@ -106,4 +106,13 @@ Have a look at our [Travis CI reference implementation](ci-services/travis.js).
 
 Write a test that returns whether this package runs in your CI service’s environment and add it to our [ci-services/tests](ci-services/tests.js).
 
+### Testing your service
+
+In order to test this plugin with your own CI service install your fork directly from git.
+
+```diff
++ npm i -g you/greenkeeper-lockfile#my-ci
+- npm i -g greenkeeper-lockfile@1
+```
+
 **We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top if this file.**
