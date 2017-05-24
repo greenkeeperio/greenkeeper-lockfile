@@ -20,6 +20,7 @@
 ## CI Services
 
 * ✅ Travis CI
+* ✅ Circle CI _Thank you [@ethanrubio](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/18) 👏_
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
