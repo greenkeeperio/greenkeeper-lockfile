@@ -1,6 +1,8 @@
 # greenkeeper-lockfile
 
-> Enabling lockfile support for Greenkeeper via your own CI
+After [enabling Greenkeeper for your repository](https://github.com/integration/greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
+
+![example screenshot](https://cloud.githubusercontent.com/assets/908178/26423274/57c5c774-40cd-11e7-8e01-fc886f23d265.png)
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/greenkeeperio/greenkeeper-lockfile.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/greenkeeperio/greenkeeper-lockfile.svg?branch=master)](https://travis-ci.org/greenkeeperio/greenkeeper-lockfile)
@@ -9,12 +11,9 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-[![NPM](https://nodei.co/npm/greenkeeper-lockfile.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/greenkeeper-lockfile/)
-
 ## Package Managers
 
-* ✅ npm
-* ✅ npm5
+* ✅ npm _(including npm5)_
 * ✅ yarn
 
 ## CI Services
@@ -25,13 +24,11 @@
 
 ## How does it work
 
-1. This script detects whether it's running on a Greenkeeper created branch
-2. If so it updates the lockfile with the latest version of the updated dependency
-3. It pushes the commit with the updated lockfile back to the Greenkeeper branch/pull request
+1. Detect whether the current CI build is caused by Greenkeeper
+2. Update the lockfile with the latest version of the updated dependency [using the package manager’s built in mechanism](lib/update-lockfile.js)
+3. Push a commit with the updated lockfile back to the Greenkeeper branch
 
 ## Setup
-
-After [enabling Greenkeeper for your repository](https://github.com/integration/greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
 
 **First [create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to your CI's environment as `GH_TOKEN`**.
 
