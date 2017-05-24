@@ -95,7 +95,6 @@ In order to support a CI service this package needs to extract some information 
 
 * **repoSlug** The GitHub repo slug e.g. `greenkeeper/greenkeeper-lockfile`
 * **branchName** The name of the current branch e.g. `greenkeeper/lodash-4.0.0`
-* **commitMessage** The commit message of the last commit on the current branch e.g. `fix(package): update lodash to version 4.0.0`
 * **firstPush** Is this the first push on this branch i.e. the Greenkeeper commit
 * **correctBuild** Is this a regular build (not a pull request for example)
 * **uploadBuild** Should the lockfile be uploaded from this build (relevant for testing multiple node versions)
