@@ -22,6 +22,12 @@
 * ✅ Travis CI
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
+## How does it work
+
+1. This script detects whether it's running on a Greenkeeper created branch
+2. If so it updates the lockfile with the latest version of the updated dependency
+3. It pushes the commit with the updated lockfile back to the Greenkeeper branch/pull request
+
 ## Setup
 
 After [enabling Greenkeeper for your repository](https://github.com/integration/greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
@@ -101,9 +107,3 @@ Have a look at our [Travis CI reference implementation](ci-services/travis.js).
 Write a test that returns whether this package runs in your CI service’s environment and add it to our [ci-services/tests](ci-services/tests.js).
 
 **We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top if this file.**
-
-## How does it work
-
-1. This script detects whether it's running on a Greenkeeper created branch
-2. If so it updates the lockfile with the latest version of the updated dependency
-3. It pushes the commit with the updated lockfile back to the Greenkeeper branch/pull request
