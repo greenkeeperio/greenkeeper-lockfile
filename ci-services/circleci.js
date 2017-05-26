@@ -9,11 +9,11 @@ const env = process.env
 function isFirstPush (branch, sha1) {
   const commitNumber = gitHelpers.getNumberOfCommitsOnBranch(branch)
   const commitMessage = gitHelpers.getCommitMessage(sha1).trim()
-  // CircleCI enviroment treats first push as 0, and also ignore the commit from greenkeeper update
-  const areFirstGreenKeeperCommits = commitNumber === 0 || commitNumber === 1
+  // CircleCI 2.0 enviroment treats first push as 0, and also ignore the commit from greenkeeper update
+  const fallsIntoCommitRange = commitNumber <= 2
 
   if (
-    areFirstGreenKeeperCommits &&
+    fallsIntoCommitRange &&
     !_.includes(config.updateMessage, commitMessage)
   ) {
     return true
