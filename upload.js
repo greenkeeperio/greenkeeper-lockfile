@@ -27,12 +27,12 @@ module.exports = function upload () {
   if (env.GH_TOKEN) {
     // Use the GH_TOKEN if provided.
     exec(`git remote add gk-origin https://${env.GH_TOKEN}@github.com/${info.repoSlug}`)
-    exec(`git push gk-origin HEAD:${info.branchName}`)
   } else {
     // Otherwise, assume an SSH key is available.
     exec(`git remote add gk-origin git@github.com:${info.repoSlug}`)
-    exec(`git push gk-origin HEAD:${info.branchName}`)
   }
+
+  exec(`git push gk-origin HEAD:${info.branchName}`)
 }
 
 if (require.main === module) module.exports()
