@@ -43,20 +43,9 @@ This is how it works on Travis CI for the different package managers.
 
 ```yml
 before_install:
-# It is advisable to use at least npm@4, as there are a lot of shrinkwrap fixes in there
-- npm install -g npm
+# package-lock.json was introduced in npm@5
+- npm install -g npm@5
 - npm install -g greenkeeper-lockfile@1
-before_script: greenkeeper-lockfile-update
-after_script: greenkeeper-lockfile-upload
-```
-
-### npm5 (during beta)
-
-```yml
-before_install:
-- npm i -g npm5
-- npm5 i -g greenkeeper-lockfile@1
-install: npm5 install
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
