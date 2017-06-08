@@ -8,11 +8,19 @@ const info = require('./ci-services')()
 const env = process.env
 
 module.exports = function upload () {
+  // legacy support
+  if (config.branchPrefix === 'greenkeeper/' && info.branchName.startsWith('greenkeeper-')) {
+    config.branchPrefix = 'greenkeeper-'
+  }
+
   if (!info.branchName.startsWith(config.branchPrefix)) {
     return console.error('Not a Greenkeeper branch')
   }
 
-  if (info.branchName === (config.branchPrefix + 'initial')) {
+  const isInitial = info.branchName === (config.branchPrefix + 'initial') ||
+    info.branchName === (config.branchPrefix + 'update-all')
+
+  if (isInitial) {
     return console.error('Not a Greenkeeper update pull request')
   }
 
