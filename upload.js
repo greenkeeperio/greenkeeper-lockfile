@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const exec = require('child_process').execSync
+const url = require('url')
 
 const config = require('./lib/config')
 const info = require('./ci-services')()
@@ -32,14 +33,17 @@ module.exports = function upload () {
     return console.error('Only uploading on one build job')
   }
 
+  let remote = `git@github.com:${info.repoSlug}`
+  if (info.gitUrl) remote = info.gitUrl
+
   if (env.GH_TOKEN) {
-    // Use the GH_TOKEN if provided.
-    exec(`git remote add gk-origin https://${env.GH_TOKEN}@github.com/${info.repoSlug}`)
-  } else {
-    // Otherwise, assume an SSH key is available.
-    exec(`git remote add gk-origin git@github.com:${info.repoSlug}`)
+    if (remote.slice(0, 5) !== 'https') remote = `https://github.com/${info.repoSlug}`
+    const urlParsed = url.parse(remote)
+    urlParsed.auth = env.GH_TOKEN
+    remote = url.format(urlParsed)
   }
 
+  exec(`git remote add gk-origin ${remote}`)
   exec(`git push gk-origin HEAD:${info.branchName}`)
 }
 
