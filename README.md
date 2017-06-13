@@ -21,6 +21,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Travis CI
 * ✅ Circle CI _Thank you [@ethanrubio](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/18) 👏_
 * ✅ Jenkins
+* ✅ Wercker
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
