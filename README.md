@@ -75,6 +75,52 @@ before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
 
+## CircleCI Sample Config
+
+### yarn
+
+```yml
+# Circle 2.0
+    steps:
+      - checkout
+  
+      - run:
+          name: Install dependencies
+          command: |
+            yarn
+
+      - run:
+          name: Maybe greenkeeper update
+          command: |
+            greenkeeper-lockfile-update
+
+      - run:
+          name: Run tests
+          command: |
+            yarn test
+
+      - run:
+          name: Maybe greenkeeper upload
+          command: |
+            greenkeeper-lockfile-upload
+```
+
+```yml
+# Circle 1.0
+  dependencies:
+      override:
+        - yarn
+      post:
+        - greenkeeper-lockfile-update
+
+  test:
+    override:
+      - yarn test
+    post:
+      - greenkeeper-lockfile-upload
+```
+
+
 ## Contributing a CI Service
 
 ### Environment information
