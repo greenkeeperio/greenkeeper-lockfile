@@ -1,7 +1,8 @@
 const env = process.env
 
 module.exports = {
-  travis: () => env.TRAVIS === 'true',
   circleci: () => env.CIRCLECI === 'true',
-  jenkins: () => env.JENKINS_URL !== undefined
+  jenkins: () => env.JENKINS_URL !== undefined,
+  travis: () => env.TRAVIS === 'true',
+  wercker: () => env.WERCKER === 'true'
 }
