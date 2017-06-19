@@ -32,7 +32,7 @@
     "url": "https://github.com/greenkeeperio/greenkeeper-lockfile.git"
   },
   "scripts": {
-    "semantic-release": "semantic-release pre && npm5 publish && semantic-release post",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "standard"
   }
 }

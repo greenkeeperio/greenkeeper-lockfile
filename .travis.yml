@@ -8,11 +8,10 @@ node_js:
 - '7'
 - '6'
 - '4'
-before_install: npm i -g npm5
-install: npm5 install
+before_install: npm i -g npm@5
 before_script: node ./update.js
 after_script: node ./upload.js
-after_success: npm5 run semantic-release
+after_success: npm run semantic-release
 branches:
   except:
   - /^v\d+\.\d+\.\d+$/
