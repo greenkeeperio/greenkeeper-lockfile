@@ -54,7 +54,8 @@ module.exports = function update () {
   }
 
   updateLockfile(dependency, {
-    yarn: !!yarnLock
+    yarn: !!yarnLock,
+    npm: !!packageLock
   })
 
   console.log('Lockfile updated')
