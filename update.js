@@ -40,7 +40,7 @@ module.exports = function update () {
   }
 
   if (!info.branchName.startsWith(config.branchPrefix)) {
-    return console.error('Not a Greenkeeper branch')
+    return console.error(`'${info.branchName}' is not a Greenkeeper branch`)
   }
 
   if (!info.firstPush) {
