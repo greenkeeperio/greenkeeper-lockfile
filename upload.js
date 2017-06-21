@@ -17,7 +17,7 @@ module.exports = function upload () {
   }
 
   if (!info.branchName.startsWith(config.branchPrefix)) {
-    return console.error('Not a Greenkeeper branch')
+    return console.error(`'${info.branchName}' is not a Greenkeeper branch`)
   }
 
   const isInitial = info.branchName === (config.branchPrefix + 'initial') ||
