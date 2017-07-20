@@ -34,6 +34,10 @@ module.exports = function update () {
     return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
   }
 
+  if (info.branchName == null) {
+    return console.error('No branch details set, so assuming not a Greenkeeper branch')
+  }
+
   // legacy support
   if (config.branchPrefix === 'greenkeeper/' && info.branchName.startsWith('greenkeeper-')) {
     config.branchPrefix = 'greenkeeper-'
