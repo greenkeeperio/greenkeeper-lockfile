@@ -11,6 +11,10 @@ const info = require('./ci-services')()
 const env = process.env
 
 module.exports = function upload () {
+  if (info.branchName == null) {
+    return console.error('No branch details set, so assuming not a Greenkeeper branch')
+  }
+
   // legacy support
   if (config.branchPrefix === 'greenkeeper/' && info.branchName.startsWith('greenkeeper-')) {
     config.branchPrefix = 'greenkeeper-'
