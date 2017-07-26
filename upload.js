@@ -11,7 +11,7 @@ const info = require('./ci-services')()
 const env = process.env
 
 module.exports = function upload () {
-  if (info.branchName == null) {
+  if (!info.branchName) {
     return console.error('No branch details set, so assuming not a Greenkeeper branch')
   }
 
