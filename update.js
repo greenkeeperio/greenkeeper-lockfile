@@ -14,17 +14,11 @@ const info = require('./ci-services')()
 const pkg = relative('./package.json')
 
 module.exports = function update () {
-  try {
-    var shrinkwrap = fs.readFileSync('./npm-shrinkwrap.json')
-  } catch (e) {}
-  try {
-    var packageLock = fs.readFileSync('./package-lock.json')
-  } catch (e) {}
-  try {
-    var yarnLock = fs.readFileSync('./yarn.lock')
-  } catch (e) {}
+  const shrinkwrapExists = fs.existsSync('./npm-shrinkwrap.json')
+  const packageLockExists = fs.existsSync('./package-lock.json')
+  const yarnLockExists = fs.existsSync('./yarn.lock')
 
-  if (!(shrinkwrap || packageLock || yarnLock)) {
+  if (!(shrinkwrapExists || packageLockExists || yarnLockExists)) {
     return console.error(
       'Without either an "npm-shrinkwrap.json", "package-lock.json" or "yarn.lock" file present there is no need to run this script'
     )
@@ -58,8 +52,8 @@ module.exports = function update () {
   }
 
   updateLockfile(dependency, {
-    yarn: !!yarnLock,
-    npm: !!packageLock
+    yarn: yarnLockExists,
+    npm: packageLockExists
   })
 
   console.log('Lockfile updated')
