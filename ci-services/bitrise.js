@@ -1,5 +1,3 @@
-// @flow
-
 const gitHelpers = require('../lib/git-helpers')
 
 const env = process.env
