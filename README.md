@@ -22,7 +22,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Circle CI _Thank you [@ethanrubio](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/18) 👏_
 * ✅ Jenkins
 * ✅ Wercker
-* ✅ Bitrise
+* ✅ Bitrise _Thank you [@zetaron](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/56) 👏_
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
