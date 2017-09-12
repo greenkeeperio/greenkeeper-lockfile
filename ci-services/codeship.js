@@ -9,7 +9,7 @@ module.exports = {
   branchName: env.CI_BRANCH,
   // Is this the first push on this branch
   // i.e. the Greenkeeper commit
-  firstPush: gitHelpers.getNumberOfCommitsOnBranch(env.CI_BRANCH) === 1 || env.CI_BRANCH === 'greenkeeper/initial',
+  firstPush: gitHelpers.getNumberOfCommitsOnBranch(env.CI_BRANCH) === 1,
   // Is this a regular build
   correctBuild: true,
   // Should the lockfile be uploaded from this build
