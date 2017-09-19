@@ -1,6 +1,4 @@
 const env = process.env
-
-const _ = require('lodash')
 const gitHelpers = require('../lib/git-helpers')
 
 module.exports = {
