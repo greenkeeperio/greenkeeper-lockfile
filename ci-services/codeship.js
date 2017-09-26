@@ -23,6 +23,11 @@ function getRepoSlug() {
   }
 }
 
+function shouldUpdate() {
+  let re = /^chore\(package\): update [^ ]+ to version .*$/mi
+  return re.test(env.CI_COMMIT_MESSAGE)
+}
+
 module.exports = {
   // The GitHub repo slug
   repoSlug: getRepoSlug(),
@@ -30,13 +35,13 @@ module.exports = {
   branchName: env.CI_BRANCH,
   // Is this the first push on this branch
   // i.e. the Greenkeeper commit
-  firstPush: true,
+  firstPush: shouldUpdate(),
   // Is this a regular build (use tag: ^greenkeeper/)
-  correctBuild: true,
+  correctBuild: shouldUpdate(),
   // Should the lockfile be uploaded from this build (use tag: ^greenkeeper/)
-  uploadBuild: true,
+  uploadBuild: shouldUpdate(),
   commitNum: gitHelpers.getNumberOfCommitsOnBranch(env.CI_BRANCH),
-  realFirstPush: gitHelpers.getNumberOfCommitsOnBranch(env.CI_BRANCH) === 1,
+  realFirstPush: gitHelpers.getNumberOfCommitsOnBranch(env.CI_BRANCH) === 1
 }
 
 /*
