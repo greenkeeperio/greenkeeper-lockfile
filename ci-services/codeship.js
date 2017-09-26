@@ -1,14 +1,23 @@
+const exec = require('child_process').execSync
 const gitHelpers = require('../lib/git-helpers')
 
 const env = process.env
 
 function getRepoSlug() {
-  if(env.GH_ORG){
-    console.warn('Missing GH_ORG environment variable, pushes will probably fail. ~JK ;)~')
+  if(env.GH_ORG) {
     return `${env.GH_ORG}/${env.CI_REPO_NAME}`
   } else {
-    console.warn('Missing GH_ORG environment variable, pushes will probably fail.')
-    return env.CI_REPO_NAME
+    console.info('Missing GH_ORG environment variable, extracting repoSlug from remote origin.')
+    let re = /github\.com[:/]([^/]+\/[^/\.]+)/g
+    let gitOriginUrl = exec(`git remote get-url origin`).toString()
+    let result = re.exec(gitOriginUrl);
+    if(result && result[1]) {
+      return result[1]
+    } else {
+      console.warn('Failed to extract repoSlug from remote origin, pushes will probably fail.')
+      console.warn('Set GH_ORG environment variable with your GitHub organization name.')
+      return env.CI_REPO_NAME
+    }
   }
 }
 
