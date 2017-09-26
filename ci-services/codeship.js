@@ -13,7 +13,8 @@ module.exports = {
   // Is this a regular build (use tag: ^greenkeeper/)
   correctBuild: true,
   // Should the lockfile be uploaded from this build (use tag: ^greenkeeper/)
-  uploadBuild: true
+  uploadBuild: true,
+  firstNum: gitHelpers.getNumberOfCommitsOnBranch(env.CI_BRANCH)
 }
 
 /*
