@@ -9,11 +9,12 @@ function getRepoSlug() {
   } else {
     console.info('Missing GH_ORG environment variable, extracting repoSlug from remote origin.')
     let re = /github\.com[:/]([^/]+\/[^/\.]+)/g
-    let gitOriginUrl = exec(`git remote get-url origin`).toString()
-    let result = re.exec(gitOriginUrl);
-    if(result && result[1]) {
+    let result;
+    try {
+      let gitOriginUrl = exec(`git remote get-url origin`).toString()
+      result = re.exec(gitOriginUrl);
       return result[1]
-    } else {
+    } catch(e) {
       console.warn('Failed to extract repoSlug from remote origin, pushes will probably fail.')
       console.warn('Set GH_ORG environment variable with your GitHub organization name.')
       return env.CI_REPO_NAME
