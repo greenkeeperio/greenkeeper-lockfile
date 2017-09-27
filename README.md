@@ -104,4 +104,4 @@ In order to test this plugin with your own CI service install your fork directly
 - npm i -g greenkeeper-lockfile@1
 ```
 
-**We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top if this file.**
+**We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top of this file.**
