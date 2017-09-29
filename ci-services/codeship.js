@@ -24,7 +24,7 @@ function getRepoSlug() {
 }
 
 function shouldUpdate() {
-  let re = /^chore\(package\): update [^ ]+ to version .*$/mi
+  let re = /^(chore|fix)\(package\): update [^ ]+ to version.*$/mi
   return re.test(env.CI_COMMIT_MESSAGE)
 }
 
