@@ -8,7 +8,8 @@ const dependency = {
   type: 'dependencies',
   name: 'my-dependency',
   version: '1.0.0',
-  prefix: ''
+  prefix: '',
+  range: '1.0.0'
 }
 
 const prepare = () => {
@@ -29,7 +30,7 @@ test('use yarn', t => {
   t.plan(1)
   exec.withArgs('npm --version').returns('3.0.0')
   updateLockfile(dependency, { yarn: true })
-  t.ok(exec.thirdCall.calledWith('yarn add --exact my-dependency@1.0.0'))
+  t.ok(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'"))
 })
 
 test('yarn no prefix', t => {
@@ -41,7 +42,7 @@ test('yarn no prefix', t => {
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(tildeDep, { yarn: true })
-  t.ok(exec.thirdCall.calledWith('yarn add my-dependency@1.0.0'))
+  t.ok(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'"))
 })
 
 test('use yarn with extra arguments from ENV', t => {
@@ -50,7 +51,7 @@ test('use yarn with extra arguments from ENV', t => {
   process.env.GK_LOCK_YARN_OPTS = '--ignore-engines'
   exec.withArgs('npm --version').returns('3.0.0')
   updateLockfile(dependency, { yarn: true })
-  t.ok(exec.thirdCall.calledWith('yarn add --exact --ignore-engines my-dependency@1.0.0'))
+  t.ok(exec.thirdCall.calledWith("yarn add --ignore-engines 'my-dependency@1.0.0'"))
   delete process.env.GK_LOCK_YARN_OPTS
 })
 
@@ -76,12 +77,13 @@ test('tilde prefix', t => {
   prepare()
   t.plan(2)
   const tildeDep = Object.assign({}, dependency, {
-    prefix: '~'
+    prefix: '~',
+    range: '~1.0.0'
   })
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(tildeDep, { yarn: true, npm: true })
-  t.ok(exec.thirdCall.calledWith('yarn add --tilde my-dependency@1.0.0'))
+  t.ok(exec.thirdCall.calledWith("yarn add 'my-dependency@~1.0.0'"))
   t.ok(exec.getCall(4).calledWith('npm install -S --save-prefix="~" my-dependency@1.0.0'))
 })
 
