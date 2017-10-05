@@ -4,16 +4,19 @@ const gitHelpers = require('../lib/git-helpers')
 const env = process.env
 const pkg = relative('./package.json')
 
+/**
+ * Generates repoSlug from user set `GH_ORG` env var and Codeship set
+ * `CI_REPO_NAME`. Fails back to extracting from `package.json`.repository.url
+ */
 function getRepoSlug() {
-  if(env.GH_ORG) {
+  if (env.GH_ORG) {
     return `${env.GH_ORG}/${env.CI_REPO_NAME}`
   } else {
-    console.info('Missing GH_ORG environment variable, extracting repoSlug from package.json')
     let re = /github\.com[:/]([^/]+\/[^/\.]+)/g
     let result
-    if(pkg.repository.url){
+    if (pkg.repository.url) {
       result = re.exec(pkg.repository.url)
-      if(result && result[1]) {
+      if (result && result[1]) {
         return result[1]
       }
     }
@@ -23,6 +26,9 @@ function getRepoSlug() {
   }
 }
 
+/**
+ * Should update the `package-lock.json`
+ */
 function shouldUpdate() {
   let re = /^(chore|fix)\(package\): update [^ ]+ to version.*$/mi
   return re.test(env.CI_COMMIT_MESSAGE)
@@ -62,5 +68,25 @@ Example `codeship-steps.yml`:
   tag: ^greenkeeper/
   service: app
   command: greenkeeper-lockfile-upload
+```
+
+`repository` key in `package.json` or GH_ORG with the org name is required, as there's no way to
+get it from the ENV vars that Codeship sets.
+`package.json`:
+```
+{
+  ...
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/org/repo.git"
+  },
+  ...
+}
+```
+
+Might need this in your `dockerfile` for ssh pushes:
+```
+RUN mkdir -p ~/.ssh
+RUN echo "github ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" >> ~/.ssh/known_hosts
 ```
 */
