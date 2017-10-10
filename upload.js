@@ -48,7 +48,7 @@ module.exports = function upload () {
     urlParsed.auth = env.GH_TOKEN
     remote = url.format(urlParsed)
   }
-  
+
   exec(`git remote add gk-origin ${remote}`)
   exec(`git push gk-origin HEAD:${info.branchName}`)
 }

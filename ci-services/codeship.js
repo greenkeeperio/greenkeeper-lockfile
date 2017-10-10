@@ -8,11 +8,11 @@ const pkg = relative('./package.json')
  * Generates repoSlug from user set `GH_ORG` env var and Codeship set
  * `CI_REPO_NAME`. Fails back to extracting from `package.json`.repository.url
  */
-function getRepoSlug() {
+function getRepoSlug () {
   if (env.GH_ORG) {
     return `${env.GH_ORG}/${env.CI_REPO_NAME}`
   } else {
-    let re = /github\.com[:/]([^/]+\/[^/\.]+)/g
+    let re = /github\.com[:/]([^/]+\/[^/\.]+)/g // eslint-disable-line no-useless-escape
     let result
     if (pkg.repository.url) {
       result = re.exec(pkg.repository.url)
@@ -29,7 +29,7 @@ function getRepoSlug() {
 /**
  * Should update the `package-lock.json`
  */
-function shouldUpdate() {
+function shouldUpdate () {
   let re = /^(chore|fix)\(package\): update [^ ]+ to version.*$/mi
   return re.test(env.CI_COMMIT_MESSAGE)
 }
