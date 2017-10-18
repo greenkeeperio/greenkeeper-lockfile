@@ -1,3 +1,5 @@
+'use strict'
+
 const gitHelpers = require('../lib/git-helpers')
 
 const env = process.env
