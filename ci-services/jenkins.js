@@ -1,3 +1,5 @@
+'use strict'
+
 const env = process.env
 
 const _ = require('lodash')
