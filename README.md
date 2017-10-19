@@ -79,6 +79,21 @@ before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
 
+### CircleCI workflows
+
+In order to use `greenkeeper-lockfile` with CircleCI workflows, it must be in the first job run. Use [sequential job execution](https://circleci.com/docs/2.0/workflows/#sequential-job-execution-example) to ensure the job that runs `greenkeeper-lockfile` is always executed first. For example, if `greenkeeper-lockfile` is run in the `lockfile` job, all other jobs in the workflow must require the `lockfile` job to finish before running:
+
+```yml
+workflows:
+  version: 2
+  workflow_name:
+    jobs:
+      - lockfile
+      - job1:
+          requires:
+            - lockfile
+```
+
 ## Contributing a CI Service
 
 ### Environment information
