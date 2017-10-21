@@ -44,6 +44,16 @@ test('yarn no prefix', t => {
   t.ok(exec.thirdCall.calledWith('yarn add my-dependency@1.0.0'))
 })
 
+test('use yarn with extra arguments from ENV', t => {
+  prepare()
+  t.plan(1)
+  process.env.GK_LOCK_YARN_OPTS = '--ignore-engines'
+  exec.withArgs('npm --version').returns('3.0.0')
+  updateLockfile(dependency, { yarn: true })
+  t.ok(exec.thirdCall.calledWith('yarn add --exact --ignore-engines my-dependency@1.0.0'))
+  delete process.env.GK_LOCK_YARN_OPTS
+})
+
 test('use npm', t => {
   prepare()
   t.plan(1)
