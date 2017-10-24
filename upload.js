@@ -28,7 +28,7 @@ module.exports = function upload () {
     info.branchName === (config.branchPrefix + 'update-all')
 
   if (isInitial) {
-    return console.error('Not a Greenkeeper update pull request')
+    return console.error('Not running on the initial Greenkeeper branch. Will only run on Greenkeeper branches that update a specific dependency')
   }
 
   if (!info.firstPush) {
