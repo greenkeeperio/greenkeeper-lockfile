@@ -36,7 +36,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 
 **First [create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to your CI's environment as `GH_TOKEN`**.
 
-If you use Travis CI, you may add the token using the [CLI app](https://github.com/travis-ci/travis.rb) as follows: `travis encrypt GH_TOKEN=<token> --add` 
+If you use Travis CI, you may add the token using the [CLI app](https://github.com/travis-ci/travis.rb) as follows: `travis encrypt GH_TOKEN=<token> --add`
 
 Configure your CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
 
@@ -63,6 +63,10 @@ before_install: yarn global add greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
+
+**Custom yarn command line arguments**
+
+To run the lockfile-update script with custom command line arguments, set the `GK_LOCK_YARN_OPTS` environment variable to your needs (set it to `--ignore-engines`, for example). They will be appended to the `yarn add` command.
 
 ## Testing multiple node versions
 
