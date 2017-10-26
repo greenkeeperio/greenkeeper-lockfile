@@ -18,8 +18,11 @@
     "semver": "^5.3.0"
   },
   "devDependencies": {
+    "nyc": "^11.2.1",
     "semantic-release": "^8.0.0",
-    "standard": "^10.0.2"
+    "sinon": "^4.0.1",
+    "standard": "^10.0.2",
+    "tap": "^10.7.2"
   },
   "engines": {
     "node": ">=4"
@@ -33,6 +36,6 @@
   },
   "scripts": {
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "standard"
+    "test": "NODE_ENV=testing standard && nyc tap test"
   }
 }
