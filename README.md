@@ -23,6 +23,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Jenkins
 * ✅ Wercker
 * ✅ Bitrise _Thank you [@zetaron](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/56) 👏_
+* ✅ Buildkite _Thank you [@justindowning](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/77) 👏_
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
@@ -34,6 +35,8 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 ## Setup
 
 **First [create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to your CI's environment as `GH_TOKEN`**.
+
+If you use Travis CI, you may add the token using the [CLI app](https://github.com/travis-ci/travis.rb) as follows: `travis encrypt GH_TOKEN=<token> --add`
 
 Configure your CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
 
@@ -61,6 +64,10 @@ before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
 
+**Custom yarn command line arguments**
+
+To run the lockfile-update script with custom command line arguments, set the `GK_LOCK_YARN_OPTS` environment variable to your needs (set it to `--ignore-engines`, for example). They will be appended to the `yarn add` command.
+
 ## Testing multiple node versions
 
 It is common to test multiple node versions and therefor have multiple test jobs for one build. In this case the lockfile will automatically be updated for every job, but only uploaded for the first one.
@@ -75,6 +82,21 @@ before_install:
 before_script: greenkeeper-lockfile-update
 # Only the node version 6 job will upload the lockfile
 after_script: greenkeeper-lockfile-upload
+```
+
+### CircleCI workflows
+
+In order to use `greenkeeper-lockfile` with CircleCI workflows, it must be in the first job run. Use [sequential job execution](https://circleci.com/docs/2.0/workflows/#sequential-job-execution-example) to ensure the job that runs `greenkeeper-lockfile` is always executed first. For example, if `greenkeeper-lockfile` is run in the `lockfile` job, all other jobs in the workflow must require the `lockfile` job to finish before running:
+
+```yml
+workflows:
+  version: 2
+  workflow_name:
+    jobs:
+      - lockfile
+      - job1:
+          requires:
+            - lockfile
 ```
 
 ## Contributing a CI Service
@@ -104,4 +126,4 @@ In order to test this plugin with your own CI service install your fork directly
 - npm i -g greenkeeper-lockfile@1
 ```
 
-**We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top if this file.**
+**We are looking forward to your contributions 💖 Don’t forget to add your CI service to the list at the top of this file.**
