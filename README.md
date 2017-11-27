@@ -51,7 +51,7 @@ This is how it works on Travis CI for the different package managers.
 ```yml
 before_install:
 # package-lock.json was introduced in npm@5
-- npm install -g npm@5 # skip this if you are using node 9
+- '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
 - npm install -g greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
