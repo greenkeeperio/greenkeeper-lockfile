@@ -11,19 +11,20 @@ const pkg = relative('./package.json')
 function getRepoSlug () {
   if (env.GH_ORG) {
     return `${env.GH_ORG}/${env.CI_REPO_NAME}`
-  } else {
-    let re = /github\.com[:/]([^/]+\/[^/\.]+)/g // eslint-disable-line no-useless-escape
-    let result
-    if (pkg.repository.url) {
-      result = re.exec(pkg.repository.url)
-      if (result && result[1]) {
-        return result[1]
-      }
-    }
-    console.warn('Failed to extract repoSlug from package.json, pushes will probably fail.')
-    console.warn('Set repository.url with the repo GitHub url in package.json.')
-    return env.CI_REPO_NAME
   }
+  let re = /github\.com[:/]([^/]+\/[^/\.]+)/g // eslint-disable-line no-useless-escape
+  let result
+  if (typeof pkg.repository === 'string') {
+    result = re.exec(pkg.repository)
+  } else if (typeof pkg.repository.url === 'string') {
+    result = re.exec(pkg.repository.url)
+  }
+  if (result && result[1]) {
+    return result[1]
+  }
+  console.warn('Failed to extract repoSlug from package.json, pushes will probably fail.')
+  console.warn('Set repository.url with the repo GitHub url in package.json.')
+  return env.CI_REPO_NAME
 }
 
 /**
@@ -82,11 +83,5 @@ get it from the ENV vars that Codeship sets.
   },
   ...
 }
-```
-
-Might need this in your `dockerfile` for ssh pushes:
-```
-RUN mkdir -p ~/.ssh
-RUN echo "github ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" >> ~/.ssh/known_hosts
 ```
 */
