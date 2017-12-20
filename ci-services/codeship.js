@@ -77,6 +77,14 @@ get it from the ENV vars that Codeship sets.
 ```
 {
   ...
+  "repository": "https://github.com/org/repo.git"
+  },
+  ...
+}
+```
+```
+{
+  ...
   "repository": {
     "type": "git",
     "url": "https://github.com/org/repo.git"
