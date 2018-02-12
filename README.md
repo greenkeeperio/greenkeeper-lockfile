@@ -24,6 +24,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Wercker
 * ✅ Bitrise _Thank you [@zetaron](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/56) 👏_
 * ✅ Buildkite _Thank you [@justindowning](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/77) 👏_
+* ✅ Codeship _Thank you [@selbyk](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/72) 👏_
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
@@ -50,7 +51,7 @@ This is how it works on Travis CI for the different package managers.
 ```yml
 before_install:
 # package-lock.json was introduced in npm@5
-- npm install -g npm@5
+- '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
 - npm install -g greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
