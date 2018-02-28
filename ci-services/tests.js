@@ -9,5 +9,6 @@ module.exports = {
   travis: () => env.TRAVIS === 'true',
   wercker: () => env.WERCKER === 'true',
   codeship: () => env.CI_NAME === 'codeship',
-  bitrise: () => env.CI === 'true' && env.BITRISE_BUILD_NUMBER !== undefined
+  bitrise: () => env.CI === 'true' && env.BITRISE_BUILD_NUMBER !== undefined,
+  semaphoreci: () => env.SEMAPHORE === 'true'
 }
