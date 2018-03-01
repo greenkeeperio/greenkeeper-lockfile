@@ -25,6 +25,8 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Bitrise _Thank you [@zetaron](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/56) 👏_
 * ✅ Buildkite _Thank you [@justindowning](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/77) 👏_
 * ✅ Codeship _Thank you [@selbyk](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/72) 👏_
+* ✅ Semaphore _Thank you [@cbothner](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/121) 👏_
+
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
