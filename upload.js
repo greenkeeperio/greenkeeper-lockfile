@@ -4,6 +4,7 @@
 
 const exec = require('child_process').execSync
 const url = require('url')
+const fs = require('fs')
 
 const config = require('./lib/config')
 const info = require('./ci-services')()
@@ -49,8 +50,16 @@ module.exports = function upload () {
     remote = url.format(urlParsed)
   }
 
+  const err = fs.createWriteStream('gk-lockfile-git-push.err')
+
   exec(`git remote add gk-origin ${remote}`)
-  exec(`git push gk-origin HEAD:${info.branchName}`)
+  exec(`git push gk-origin HEAD:${info.branchName}`, {
+    stdio: [
+      'pipe',
+      'pipe',
+      err
+    ]
+  })
 }
 
 if (require.main === module) module.exports()
