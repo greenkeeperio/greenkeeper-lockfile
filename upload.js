@@ -50,7 +50,7 @@ module.exports = function upload () {
     remote = url.format(urlParsed)
   }
 
-  const err = fs.createWriteStream('gk-lockfile-git-push.err')
+  const err = fs.openSync('gk-lockfile-git-push.err', 'w')
 
   exec(`git remote add gk-origin ${remote}`)
   exec(`git push gk-origin HEAD:${info.branchName}`, {
