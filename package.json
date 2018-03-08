@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "nyc": "^11.2.1",
-    "semantic-release": "^12.4.1",
+    "semantic-release": "^15.0.0",
     "sinon": "^4.0.1",
     "standard": "^11.0.0",
     "tap": "^11.0.0"
