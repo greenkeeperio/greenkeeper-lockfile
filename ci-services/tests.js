@@ -10,5 +10,6 @@ module.exports = {
   wercker: () => env.WERCKER === 'true',
   codeship: () => env.CI_NAME === 'codeship',
   bitrise: () => env.CI === 'true' && env.BITRISE_BUILD_NUMBER !== undefined,
-  semaphoreci: () => env.SEMAPHORE === 'true'
+  semaphoreci: () => env.SEMAPHORE === 'true',
+  teamcity: () => env.TEAMCITY_VERSION !== undefined
 }
