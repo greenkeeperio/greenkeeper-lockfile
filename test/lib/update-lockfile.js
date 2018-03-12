@@ -1,4 +1,3 @@
-const test = require('tap').test
 const stub = require('sinon').stub
 const exec = stub(require('child_process'), 'execSync')
 
@@ -17,65 +16,87 @@ const prepare = () => {
   exec.withArgs('git status --porcelain').returns('1')
 }
 
-test('do shrinkwrap for old npm versions', t => {
+test('do shrinkwrap for old npm versions', () => {
   prepare()
-  t.plan(1)
+  expect.assertions(1)
   exec.withArgs('npm --version').returns('2.0.0')
   updateLockfile({}, {})
-  t.ok(exec.secondCall.calledWith('npm shrinkwrap'))
+  expect(exec.secondCall.calledWith('npm shrinkwrap')).toBeTruthy()
 })
 
-test('use yarn', t => {
+test('use yarn', () => {
   prepare()
-  t.plan(1)
+  expect.assertions(1)
   exec.withArgs('npm --version').returns('3.0.0')
   updateLockfile(dependency, { yarn: true })
-  t.ok(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'"))
+  expect(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'")).toBeTruthy()
 })
 
-test('yarn no prefix', t => {
+test('yarn no prefix', () => {
   prepare()
-  t.plan(1)
+  expect.assertions(1)
   const tildeDep = Object.assign({}, dependency, {
     prefix: null
   })
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(tildeDep, { yarn: true })
-  t.ok(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'"))
+  expect(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'")).toBeTruthy()
 })
 
-test('use yarn with extra arguments from ENV', t => {
+test('use yarn with extra arguments from ENV', () => {
   prepare()
-  t.plan(1)
+  expect.assertions(1)
   process.env.GK_LOCK_YARN_OPTS = '--ignore-engines'
   exec.withArgs('npm --version').returns('3.0.0')
   updateLockfile(dependency, { yarn: true })
-  t.ok(exec.thirdCall.calledWith("yarn add --ignore-engines 'my-dependency@1.0.0'"))
+  expect(exec.thirdCall.calledWith("yarn add --ignore-engines 'my-dependency@1.0.0'")).toBeTruthy()
   delete process.env.GK_LOCK_YARN_OPTS
 })
 
-test('use npm', t => {
+test('use npm', () => {
   prepare()
-  t.plan(1)
+  expect.assertions(1)
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(dependency, { npm: true })
-  t.ok(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0'))
+  expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
 })
 
-test('use npm v5', t => {
+test('use npm v5', () => {
   prepare()
-  t.plan(1)
+  expect.assertions(1)
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').returns('5.0.0')
   updateLockfile(dependency, { npm: true })
-  t.ok(exec.getCall(4).calledWith('npm5 install -S my-dependency@1.0.0'))
+  expect(exec.getCall(4).calledWith('npm5 install -S my-dependency@1.0.0')).toBeTruthy()
 })
 
-test('tilde prefix', t => {
+test('default author', () => {
   prepare()
-  t.plan(2)
+  exec.withArgs('npm --version').returns('3.0.0')
+  expect.assertions(2)
+  updateLockfile(dependency, { npm: true })
+  expect(exec.getCall(9).calledWith('git config user.email "support@greenkeeper.io"')).toBeTruthy()
+  expect(exec.getCall(10).calledWith('git config user.name "greenkeeperio-bot"')).toBeTruthy()
+})
+
+test('customise author', () => {
+  prepare()
+  process.env.GK_LOCK_COMMIT_EMAIL = 'testbot@test.de'
+  process.env.GK_LOCK_COMMIT_NAME = 'testbot'
+  exec.withArgs('npm --version').returns('3.0.0')
+  expect.assertions(2)
+  updateLockfile(dependency, { npm: true })
+  expect(exec.getCall(9).calledWith('git config user.email "testbot@test.de"')).toBeTruthy()
+  expect(exec.getCall(10).calledWith('git config user.name "testbot"')).toBeTruthy()
+  delete process.env.GK_LOCK_COMMIT_EMAIL
+  delete process.env.GK_LOCK_COMMIT_NAME
+})
+
+test('tilde prefix', () => {
+  prepare()
+  expect.assertions(2)
   const tildeDep = Object.assign({}, dependency, {
     prefix: '~',
     range: '~1.0.0'
@@ -83,15 +104,15 @@ test('tilde prefix', t => {
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(tildeDep, { yarn: true, npm: true })
-  t.ok(exec.thirdCall.calledWith("yarn add 'my-dependency@~1.0.0'"))
-  t.ok(exec.getCall(4).calledWith('npm install -S --save-prefix="~" my-dependency@1.0.0'))
+  expect(exec.thirdCall.calledWith("yarn add 'my-dependency@~1.0.0'")).toBeTruthy()
+  expect(exec.getCall(4).calledWith('npm install -S --save-prefix="~" my-dependency@1.0.0')).toBeTruthy()
 })
 
-test('no status', t => {
+test('no status', () => {
   exec.reset()
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('git status --porcelain').returns('')
   updateLockfile(dependency, { npm: true })
-  t.plan(1)
-  t.equal(exec.callCount, 6)
+  expect.assertions(1)
+  expect(exec.callCount).toBe(6)
 })
