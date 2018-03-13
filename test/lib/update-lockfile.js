@@ -119,42 +119,6 @@ test('no status', () => {
   expect(exec.callCount).toBe(6)
 })
 
-test('no GK_LOCK_COMMIT_NAME', () => {
-  prepare()
-  expect.assertions(1)
-  exec.withArgs('npm --version').returns('3.0.0')
-  updateLockfile(dependency, {})
-  expect(exec.getCall(8).calledWith('git config user.name "greenkeeperio-bot"')).toBeTruthy()
-})
-
-test('with GK_LOCK_COMMIT_NAME', () => {
-  prepare()
-  expect.assertions(1)
-  process.env.GK_LOCK_COMMIT_NAME = 'Example Person'
-  exec.withArgs('npm --version').returns('3.0.0')
-  updateLockfile(dependency, {})
-  expect(exec.getCall(8).calledWith('git config user.name "Example Person"')).toBeTruthy()
-  delete process.env.GK_LOCK_COMMIT_NAME
-})
-
-test('no GK_LOCK_COMMIT_EMAIL', () => {
-  prepare()
-  expect.assertions(1)
-  exec.withArgs('npm --version').returns('3.0.0')
-  updateLockfile(dependency, {})
-  expect(exec.getCall(7).calledWith('git config user.email "support@greenkeeper.io"')).toBeTruthy()
-})
-
-test('with GK_LOCK_COMMIT_EMAIL', () => {
-  prepare()
-  expect.assertions(1)
-  process.env.GK_LOCK_COMMIT_EMAIL = 'example@website.com'
-  exec.withArgs('npm --version').returns('3.0.0')
-  updateLockfile(dependency, {})
-  expect(exec.getCall(7).calledWith('git config user.email "example@website.com"')).toBeTruthy()
-  delete process.env.GK_LOCK_COMMIT_EMAIL
-})
-
 test('no GK_LOCK_COMMIT_AMEND', () => {
   prepare()
   expect.assertions(1)
