@@ -16,6 +16,8 @@ const prepare = () => {
   exec.withArgs('git status --porcelain').returns('1')
 }
 
+const updateMessage = 'chore(package): update lockfile\n\nhttps://npm.im/greenkeeper-lockfile'
+
 test('do shrinkwrap for old npm versions', () => {
   prepare()
   expect.assertions(1)
@@ -115,4 +117,55 @@ test('no status', () => {
   updateLockfile(dependency, { npm: true })
   expect.assertions(1)
   expect(exec.callCount).toBe(6)
+})
+
+test('no GK_LOCK_COMMIT_AMEND', () => {
+  prepare()
+  expect.assertions(1)
+  exec.withArgs('npm --version').returns('3.0.0')
+  updateLockfile(dependency, {})
+  expect(exec.getCall(9).calledWith(`git commit -m "${updateMessage}"`)).toBeTruthy()
+})
+
+test('with truthy GK_LOCK_COMMIT_AMEND', () => {
+  const fixtures = ['1', 'true', 'foo']
+  expect.assertions(fixtures.length)
+  fixtures.forEach((fixture) => {
+    prepare()
+    process.env.GK_LOCK_COMMIT_AMEND = fixture
+    exec.withArgs('npm --version').returns('3.0.0')
+    updateLockfile(dependency, {})
+    expect(exec.getCall(9).calledWith(`git commit --amend --author="greenkeeperio-bot <support@greenkeeper.io>" --no-edit`)).toBeTruthy()
+  })
+  delete process.env.GK_LOCK_COMMIT_AMEND
+})
+
+test('with truthy GK_LOCK_COMMIT_AMEND and GK_LOCK_COMMIT_NAME/EMAIL', () => {
+  const fixtures = ['1', 'true', 'foo']
+  expect.assertions(fixtures.length)
+  process.env.GK_LOCK_COMMIT_NAME = 'Example Person'
+  process.env.GK_LOCK_COMMIT_EMAIL = 'example@website.com'
+  fixtures.forEach((fixture) => {
+    prepare()
+    process.env.GK_LOCK_COMMIT_AMEND = fixture
+    exec.withArgs('npm --version').returns('3.0.0')
+    updateLockfile(dependency, {})
+    expect(exec.getCall(9).calledWith(`git commit --amend --author="Example Person <example@website.com>" --no-edit`)).toBeTruthy()
+  })
+  delete process.env.GK_LOCK_COMMIT_AMEND
+  delete process.env.GK_LOCK_COMMIT_NAME
+  delete process.env.GK_LOCK_COMMIT_EMAIL
+})
+
+test('with falsy GK_LOCK_COMMIT_AMEND', () => {
+  const fixtures = [undefined, '0', 'false', 'null', 'undefined']
+  expect.assertions(fixtures.length)
+  fixtures.forEach((fixture) => {
+    prepare()
+    process.env.GK_LOCK_COMMIT_AMEND = fixture
+    exec.withArgs('npm --version').returns('3.0.0')
+    updateLockfile(dependency, {})
+    expect(exec.getCall(9).calledWith(`git commit -m "${updateMessage}"`)).toBeTruthy()
+  })
+  delete process.env.GK_LOCK_COMMIT_AMEND
 })
