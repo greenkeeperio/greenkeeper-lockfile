@@ -6,6 +6,7 @@ module.exports = {
   buildkite: () => env.BUILDKITE === 'true',
   circleci: () => env.CIRCLECI === 'true',
   jenkins: () => env.JENKINS_URL !== undefined,
+  teamcity: () => env.TEAMCITY_VERSION !== undefined,
   travis: () => env.TRAVIS === 'true',
   wercker: () => env.WERCKER === 'true',
   codeship: () => env.CI_NAME === 'codeship',
