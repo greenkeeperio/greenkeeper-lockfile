@@ -1,3 +1,5 @@
+coverage
 node_modules
 *.log
-.nyc_output
+# jest coverage output
+coverage/

@@ -8,5 +8,8 @@ module.exports = {
   jenkins: () => env.JENKINS_URL !== undefined,
   travis: () => env.TRAVIS === 'true',
   wercker: () => env.WERCKER === 'true',
-  bitrise: () => env.CI === 'true' && env.BITRISE_BUILD_NUMBER !== ''
+  codeship: () => env.CI_NAME === 'codeship',
+  bitrise: () => env.CI === 'true' && env.BITRISE_BUILD_NUMBER !== undefined,
+  semaphoreci: () => env.SEMAPHORE === 'true',
+  teamcity: () => env.TEAMCITY_VERSION !== undefined
 }

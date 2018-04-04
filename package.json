@@ -18,11 +18,10 @@
     "semver": "^5.3.0"
   },
   "devDependencies": {
-    "nyc": "^11.2.1",
-    "semantic-release": "^8.0.0",
+    "jest": "^22.4.2",
+    "semantic-release": "^15.0.3",
     "sinon": "^4.0.1",
-    "standard": "^10.0.2",
-    "tap": "^10.7.2"
+    "standard": "^11.0.0"
   },
   "engines": {
     "node": ">=4"
@@ -34,8 +33,31 @@
     "type": "git",
     "url": "https://github.com/greenkeeperio/greenkeeper-lockfile.git"
   },
+  "jest": {
+    "testRegex": "/test/.*\\.js$",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverage": true,
+    "testEnvironment": "node"
+  },
+  "standard": {
+    "env": {
+      "jest": true
+    },
+    "globals": [
+      "jest",
+      "expect",
+      "describe",
+      "test",
+      "beforeAll",
+      "beforeEach",
+      "afterAll",
+      "afterEach"
+    ]
+  },
   "scripts": {
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "NODE_ENV=testing standard && nyc tap test"
+    "test": "NODE_ENV=testing standard && jest"
   }
 }

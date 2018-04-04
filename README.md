@@ -24,6 +24,10 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Wercker
 * ✅ Bitrise _Thank you [@zetaron](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/56) 👏_
 * ✅ Buildkite _Thank you [@justindowning](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/77) 👏_
+* ✅ Codeship _Thank you [@selbyk](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/72) 👏_
+* ✅ Semaphore _Thank you [@cbothner](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/121) 👏_
+* ✅ TeamCity _Thank you [@tagoro9](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/131) & [@dbrockman](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/106) 👏_
+
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
 ## How does it work
@@ -50,7 +54,7 @@ This is how it works on Travis CI for the different package managers.
 ```yml
 before_install:
 # package-lock.json was introduced in npm@5
-- npm install -g npm@5 # skip this if you are using node 9
+- '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
 - npm install -g greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
@@ -98,6 +102,15 @@ workflows:
           requires:
             - lockfile
 ```
+
+### TeaamCity Setup
+
+In order for this to work with Team City, the build configuration needs to set
+the following environment variables:
+
+- VCS_ROOT_URL from the vcsroot.<vcsrootid>.url parameter
+- VCS_ROOT_BRANCH from the teamcity.build.branch parameter
+
 
 ## Contributing a CI Service
 
