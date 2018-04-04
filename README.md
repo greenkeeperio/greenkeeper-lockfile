@@ -26,6 +26,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Buildkite _Thank you [@justindowning](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/77) 👏_
 * ✅ Codeship _Thank you [@selbyk](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/72) 👏_
 * ✅ Semaphore _Thank you [@cbothner](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/121) 👏_
+* ✅ TeamCity _Thank you [@tagoro9](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/131) & [@dbrockman](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/106) 👏_
 
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
@@ -101,6 +102,15 @@ workflows:
           requires:
             - lockfile
 ```
+
+### TeaamCity Setup
+
+In order for this to work with Team City, the build configuration needs to set
+the following environment variables:
+
+- VCS_ROOT_URL from the vcsroot.<vcsrootid>.url parameter
+- VCS_ROOT_BRANCH from the teamcity.build.branch parameter
+
 
 ## Contributing a CI Service
 
