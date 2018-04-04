@@ -52,7 +52,7 @@ module.exports = function upload () {
 
  err = fs.openSync('gk-lockfile-git-push.err', 'w')
 
-  exec(`git remote add gk-origin ${remote} remote set-url gk-origin ${remote}`)
+  exec(`git remote add gk-origin ${remote} || git remote set-url gk-origin ${remote}`)
   exec(`git push gk-origin HEAD:${info.branchName}`, {
     stdio: [
       'pipe',
