@@ -1,0 +1,6 @@
+{
+  "name": "sub1-test",
+  "dependencies": {
+    "my-dependency": "1.0.0"
+  }
+}
