@@ -169,23 +169,3 @@ test('with falsy GK_LOCK_COMMIT_AMEND', () => {
   })
   delete process.env.GK_LOCK_COMMIT_AMEND
 })
-
-/*
-
-test plan for monorepo:
-  create fixture repos with different configurations, for both npm and yarn and their lockfiles
-  - no package.json
-  - root package.json
-  - root package.json and one subdir package.json
-  - root package.json and two subdir package.json
-  - root package.json and two subdir package.json with different subdir levels
-  - no root package.json and one subdir package.json
-  - no root package.json and two subdir package.json
-  - no root package.json and two subdir package.json with different subdir levels
-
-implementation plan:
-
-use fast-glob to find all package.json files
-then loop over existing logic, but silently fail if it has no companion yarn lock
-
-*/

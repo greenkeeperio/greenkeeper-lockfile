@@ -9,11 +9,12 @@ const relative = require('require-relative')
 const config = require('./lib/config')
 const extractDependency = require('./lib/extract-dependency')
 const updateLockfile = require('./lib/update-lockfile')
-const info = require('./ci-services')()
-
-const pkg = relative('./package.json')
+const ci = require('./ci-services')
 
 module.exports = function update () {
+  const info = ci()
+  const pkg = relative('./package.json')
+
   const shrinkwrapExists = fs.existsSync('./npm-shrinkwrap.json')
   const packageLockExists = fs.existsSync('./package-lock.json')
   const yarnLockExists = fs.existsSync('./yarn.lock')
@@ -58,5 +59,4 @@ module.exports = function update () {
 
   console.log('Lockfile updated')
 }
-
 if (require.main === module) module.exports()
