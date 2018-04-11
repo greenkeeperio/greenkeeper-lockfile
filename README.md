@@ -103,9 +103,9 @@ workflows:
             - lockfile
 ```
 
-### TeaamCity Setup
+### TeamCity Setup
 
-In order for this to work with Team City, the build configuration needs to set
+In order for this to work with TeamCity, the build configuration needs to set
 the following environment variables:
 
 - VCS_ROOT_URL from the vcsroot.<vcsrootid>.url parameter
