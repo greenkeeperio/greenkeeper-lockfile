@@ -19,7 +19,7 @@ module.exports = {
   // i.e. the Greenkeeper commit
   firstPush: shouldUpdate(),
   // Is this a regular build
-  correctBuild: env.DRONE_BUILD_EVENT=== 'push',
+  correctBuild: env.DRONE_BUILD_EVENT === 'push',
   // Should the lockfile be uploaded from this build
   uploadBuild: env.DRONE_JOB_NUMBER.endsWith('1')
 }
