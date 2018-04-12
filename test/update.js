@@ -5,10 +5,9 @@ const process = require('process')
 
 const update = require('../update')
 
-process.env.TRAVIS = 'true'
-process.env.TRAVIS_JOB_NUMBER = '1'
-process.env.TRAVIS_PULL_REQUEST = 'false'
-process.env.TRAVIS_BRANCH = 'greenkeeper/my-dependency-1.0.0'
+process.env.JENKINS_URL = 'true'
+process.env.BUILD_NUMBER = '1'
+process.env.GIT_BRANCH = 'fooo/greenkeeper/my-dependency-1.0.0'
 
 const prepare = () => {
   exec.reset()
