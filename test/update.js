@@ -2,6 +2,7 @@ const stub = require('sinon').stub
 const childProcess = require('child_process')
 const exec = stub(childProcess, 'execSync')
 const process = require('process')
+const path = require('path')
 
 const update = require('../update')
 
@@ -14,6 +15,7 @@ const prepare = () => {
   exec.withArgs('git status --porcelain').returns('1')
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
+  process.chdir(path.join(__dirname, '../'))
 }
 
 // Tip for writing more assertions: console.log(exec.args) shows the list of invocations
