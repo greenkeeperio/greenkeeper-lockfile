@@ -16,5 +16,8 @@ module.exports = {
   branchName: env.APPVEYOR_REPO_BRANCH,
   firstPush: shouldUpdate(),
   correctBuild: !env.APPVEYOR_PULL_REQUEST_NUMBER,
-  uploadBuild: shouldUpdate()
+  uploadBuild: shouldUpdate(),
+  // Used to ignore output when staging the updated lockfile
+  // The Windows equivalent of '2>/dev/null || true' is '2>NUL || (exit 0)'
+  ignoreOutput: '2>NUL || (exit 0)'
 }

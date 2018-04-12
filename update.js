@@ -53,7 +53,8 @@ module.exports = function update () {
 
   updateLockfile(dependency, {
     yarn: yarnLockExists,
-    npm: packageLockExists || shrinkwrapExists
+    npm: packageLockExists || shrinkwrapExists,
+    ignoreOutput: info.ignoreOutput
   })
 
   console.log('Lockfile updated')
