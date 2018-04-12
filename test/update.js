@@ -15,7 +15,6 @@ const prepare = () => {
   exec.withArgs('git status --porcelain').returns('1')
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
-  process.chdir(path.join(__dirname, '../'))
 }
 
 // Tip for writing more assertions: console.log(exec.args) shows the list of invocations
@@ -25,16 +24,15 @@ afterAll(() => {
 })
 
 function runUpdateInSubdir (dir) {
-  process.chdir(dir)
+  process.chdir(path.join(__dirname, dir))
   update()
-  process.chdir('../../../')
 }
 
 // Monorepo tests
 test('monorepo: root package', () => {
   prepare()
   expect.assertions(2)
-  runUpdateInSubdir('test/fixtures/root-package')
+  runUpdateInSubdir('fixtures/root-package')
   expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.callCount).toEqual(12)
 })
@@ -42,14 +40,14 @@ test('monorepo: root package', () => {
 test('monorepo: no package.json', () => {
   prepare()
   expect.assertions(1)
-  runUpdateInSubdir('test/fixtures/no-package')
+  runUpdateInSubdir('fixtures/no-package')
   expect(exec.callCount).toEqual(0)
 })
 
 test('monorepo: root and one sub package', () => {
   prepare()
   expect.assertions(3)
-  runUpdateInSubdir('test/fixtures/root-and-one-sub')
+  runUpdateInSubdir('fixtures/root-and-one-sub')
   expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.callCount).toEqual(17)
@@ -58,7 +56,7 @@ test('monorepo: root and one sub package', () => {
 test('monorepo: root and two sub package', () => {
   prepare()
   expect.assertions(4)
-  runUpdateInSubdir('test/fixtures/root-and-two-sub')
+  runUpdateInSubdir('fixtures/root-and-two-sub')
   expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.getCall(14).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
@@ -68,7 +66,7 @@ test('monorepo: root and two sub package', () => {
 test('monorepo: root and two sub package at different levels', () => {
   prepare()
   expect.assertions(4)
-  runUpdateInSubdir('test/fixtures/root-and-two-diff-sub')
+  runUpdateInSubdir('fixtures/root-and-two-diff-sub')
   expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.getCall(14).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
@@ -78,7 +76,7 @@ test('monorepo: root and two sub package at different levels', () => {
 test('monorepo: no root and one sub package', () => {
   prepare()
   expect.assertions(2)
-  runUpdateInSubdir('test/fixtures/no-root-and-one-sub')
+  runUpdateInSubdir('fixtures/no-root-and-one-sub')
   expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.callCount).toEqual(12)
 })
@@ -86,7 +84,7 @@ test('monorepo: no root and one sub package', () => {
 test('monorepo: no root and two sub package', () => {
   prepare()
   expect.assertions(3)
-  runUpdateInSubdir('test/fixtures/no-root-and-two-sub')
+  runUpdateInSubdir('fixtures/no-root-and-two-sub')
   expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.callCount).toEqual(17)
@@ -95,7 +93,7 @@ test('monorepo: no root and two sub package', () => {
 test('monorepo: no root and two sub package at different levels', () => {
   prepare()
   expect.assertions(3)
-  runUpdateInSubdir('test/fixtures/no-root-and-two-diff-sub')
+  runUpdateInSubdir('fixtures/no-root-and-two-diff-sub')
   expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
   expect(exec.callCount).toEqual(17)
