@@ -1,3 +1,5 @@
+'use strict'
+
 const stub = require('sinon').stub
 const childProcess = require('child_process')
 const exec = stub(childProcess, 'execSync')
