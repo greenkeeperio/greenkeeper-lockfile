@@ -92,7 +92,9 @@ module.exports = function update () {
       })
     })
 
-    stageLockfile()
+    stageLockfile({
+      ignoreOutput: info.ignoreOutput
+    })
     process.chdir(previousDir)
     return true
   }, false)
