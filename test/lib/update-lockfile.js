@@ -1,8 +1,10 @@
+'use strict'
+
 const stub = require('sinon').stub
 const childProcess = require('child_process')
 const exec = stub(childProcess, 'execSync')
 
-const lockfile = require('./lib/update-lockfile')
+let lockfile = require('../../lib/update-lockfile')
 const updateLockfile = lockfile.updateLockfile
 const commitLockfile = lockfile.commitLockfile
 
