@@ -11,7 +11,11 @@ const fg = require('fast-glob')
 
 const config = require('./lib/config')
 const extractDependency = require('./lib/extract-dependency')
-const { updateLockfile, commitLockfile } = require('./lib/update-lockfile')
+
+const lockfile = require('./lib/update-lockfile')
+const updateLockfile = lockfile.updateLockfile
+const commitLockfile = lockfile.commitLockfile
+
 const ci = require('./ci-services')
 
 module.exports = function update () {

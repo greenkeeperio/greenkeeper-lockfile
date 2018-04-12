@@ -2,7 +2,9 @@ const stub = require('sinon').stub
 const childProcess = require('child_process')
 const exec = stub(childProcess, 'execSync')
 
-const { updateLockfile, commitLockfile } = require('../../lib/update-lockfile')
+const lockfile = require('./lib/update-lockfile')
+const updateLockfile = lockfile.updateLockfile
+const commitLockfile = lockfile.commitLockfile
 
 const dependency = {
   type: 'dependencies',
