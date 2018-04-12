@@ -11,5 +11,6 @@ module.exports = {
   codeship: () => env.CI_NAME === 'codeship',
   bitrise: () => env.BITRISE_IO === 'true',
   semaphoreci: () => env.SEMAPHORE === 'true',
-  teamcity: () => env.TEAMCITY_VERSION !== undefined
+  teamcity: () => env.TEAMCITY_VERSION !== undefined,
+  appveyor: () => env.APPVEYOR === 'True'
 }
