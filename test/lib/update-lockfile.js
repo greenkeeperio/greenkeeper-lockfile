@@ -178,3 +178,12 @@ test('with falsy GK_LOCK_COMMIT_AMEND', () => {
   expect(exec.args.map(args => args[0])).toMatchSnapshot()
   delete process.env.GK_LOCK_COMMIT_AMEND
 })
+
+test('with truthy ignoreOutput', () => {
+  prepare()
+  exec.withArgs('npm --version').returns('3.0.0')
+  updateLockfile(dependency, {ignoreOutput: '2>/dev/null || true'})
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.args.map(args => args[0])).toMatchSnapshot()
+})

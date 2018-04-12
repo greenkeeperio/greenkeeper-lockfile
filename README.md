@@ -169,6 +169,10 @@ In order to support a CI service this package needs to extract some information 
 * **correctBuild** Is this a regular build (not a pull request for example)
 * **uploadBuild** Should the lockfile be uploaded from this build (relevant for testing multiple node versions)
 
+The following optional information may be needed:
+
+* **ignoreOutput** The method to ignore command output when staging the updated lockfile (e.g. `2>NUL || (exit 0)` on Windows)
+
 Have a look at our [Travis CI reference implementation](ci-services/travis.js).
 
 ### Detecting your service

@@ -212,6 +212,22 @@ Array [
 ]
 `;
 
+exports[`with truthy ignoreOutput 1`] = `
+Array [
+  "npm --version",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
+
 exports[`yarn no prefix 1`] = `
 Array [
   "yarn add 'my-dependency@1.0.0'",
