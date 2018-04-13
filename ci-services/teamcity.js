@@ -29,7 +29,6 @@ function shouldUpload () {
 module.exports = {
   repoSlug: gitHelpers.getRepoSlug(env.VCS_ROOT_URL),
   branchName: env.VCS_ROOT_BRANCH,
-  firstPush: shouldUpload(),
   correctBuild: !isPullRequest(),
   uploadBuild: shouldUpload()
 }

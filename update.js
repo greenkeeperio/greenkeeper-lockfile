@@ -11,6 +11,7 @@ const fg = require('fast-glob')
 
 const config = require('./lib/config')
 const extractDependency = require('./lib/extract-dependency')
+const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
 const lockfile = require('./lib/update-lockfile')
 const updateLockfile = lockfile.updateLockfile
@@ -30,16 +31,16 @@ module.exports = function update () {
     return console.error(`'${info.branchName}' is not a Greenkeeper branch`)
   }
 
-  if (!info.firstPush) {
-    return console.error('Only running on first push of a new branch')
-  }
-
   if (!info.correctBuild) {
     return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
   }
 
   if (!info.branchName) {
     return console.error('No branch details set, so assuming not a Greenkeeper branch')
+  }
+
+  if (hasLockfileCommit(info)) {
+    return console.error('greenkeeper-lockfile already has a commit on this branch')
   }
 
   const allPackageFiles = fg.sync('./**/package.json')
