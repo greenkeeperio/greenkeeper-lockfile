@@ -10,6 +10,7 @@ const relative = require('require-relative')
 const fg = require('fast-glob')
 
 const config = require('./lib/config')
+const ignores = require('./lib/ignores')
 const extractDependency = require('./lib/extract-dependency')
 const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
@@ -43,7 +44,8 @@ module.exports = function update () {
     return console.error('greenkeeper-lockfile already has a commit on this branch')
   }
 
-  const allPackageFiles = fg.sync('./**/package.json')
+  const ignores = getIgnores()
+  const allPackageFiles = fg.sync('./**/package.json', {ignore: ignores})
   const doCommit = allPackageFiles.reduce((didChange, pkgJson) => {
     const lockfilePath = path.dirname(pkgJson)
     const previousDir = process.cwd()
