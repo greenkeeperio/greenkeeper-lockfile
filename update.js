@@ -10,7 +10,7 @@ const relative = require('require-relative')
 const fg = require('fast-glob')
 
 const config = require('./lib/config')
-const ignores = require('./lib/ignores')
+const getIgnores = require('./lib/ignores')
 const extractDependency = require('./lib/extract-dependency')
 const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
