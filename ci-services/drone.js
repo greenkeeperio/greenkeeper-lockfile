@@ -21,5 +21,7 @@ module.exports = {
   // Is this a regular build
   correctBuild: env.DRONE_BUILD_EVENT === 'push',
   // Should the lockfile be uploaded from this build
-  uploadBuild: env.DRONE_JOB_NUMBER.endsWith('1')
+  uploadBuild: env.DRONE_JOB_NUMBER.endsWith('1'),
+  // The git url
+  gitUrl: env.DRONE_REMOTE_URL
 }
