@@ -32,7 +32,7 @@ function getRepoSlug () {
  */
 function shouldUpdate () {
   let re = /^(chore|fix)\(package\): update [^ ]+ to version.*$/mi
-  return re.test(env.CI_COMMIT_MESSAGE)
+  return re.test(env.CI_MESSAGE)
 }
 
 module.exports = {
