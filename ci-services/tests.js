@@ -5,6 +5,7 @@ const env = process.env
 module.exports = {
   buildkite: () => env.BUILDKITE === 'true',
   circleci: () => env.CIRCLECI === 'true',
+  codebuild: () => env.CODEBUILD_BUILD_ID !== undefined,
   drone: () => env.DRONE === 'true',
   jenkins: () => env.JENKINS_URL !== undefined,
   travis: () => env.TRAVIS === 'true',
