@@ -27,6 +27,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Codeship _Thank you [@selbyk](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/72) 👏_
 * ✅ Semaphore _Thank you [@cbothner](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/121) 👏_
 * ✅ TeamCity _Thank you [@tagoro9](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/131) & [@dbrockman](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/106) 👏_
+* ✅ Drone.io _Thank you [@donny-dont](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/141) 👏_
 
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
