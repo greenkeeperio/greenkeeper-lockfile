@@ -5,6 +5,7 @@
 const fs = require('fs')
 const path = require('path')
 const process = require('process')
+const exec = require('child_process').execSync
 
 const relative = require('require-relative')
 const fg = require('fast-glob')
@@ -16,7 +17,8 @@ const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
 const lockfile = require('./lib/update-lockfile')
 const updateLockfile = lockfile.updateLockfile
-const commitLockfile = lockfile.commitLockfile
+const stageLockfile = lockfile.stageLockfile
+const commitLockfiles = lockfile.commitLockfiles
 
 const ci = require('./ci-services')
 
@@ -46,6 +48,11 @@ module.exports = function update () {
 
   const ignores = getIgnores()
   const allPackageFiles = fg.sync('./**/package.json', {ignore: ignores})
+
+  // make sure that we have a clean working tree
+  exec('git stash')
+  exec('git revert -n HEAD')
+  exec('git reset HEAD')
   const doCommit = allPackageFiles.reduce((didChange, pkgJson) => {
     const lockfilePath = path.dirname(pkgJson)
     const previousDir = process.cwd()
@@ -77,16 +84,17 @@ module.exports = function update () {
       yarn: yarnLockExists,
       npm: packageLockExists || shrinkwrapExists
     })
+    stageLockfile()
     process.chdir(previousDir)
     return true
   }, false)
 
   if (doCommit) {
-    commitLockfile()
+    commitLockfiles()
   }
 
   if (process.env.NODE_ENV && process.env.NODE_ENV !== 'test') {
-    console.log('Lockfile updated')
+    console.log('Lockfiles updated')
   }
 }
 if (require.main === module) module.exports()
