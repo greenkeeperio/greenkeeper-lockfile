@@ -74,16 +74,26 @@ module.exports = function update () {
 
     const dependency = extractDependency(pkg, config.branchPrefix, info.branchName)
 
-    if (!dependency) {
+    if (!dependency || dependency.length === 0) {
       console.error(`${pkgJson}: No dependency changed`)
       process.chdir(previousDir)
       return didChange
     }
 
-    updateLockfile(dependency, {
-      yarn: yarnLockExists,
-      npm: packageLockExists || shrinkwrapExists
-    })
+    if (dependency.length) {
+      dependency.forEach(dep => {
+        updateLockfile(dep, {
+          yarn: yarnLockExists,
+          npm: packageLockExists || shrinkwrapExists
+        })
+      })
+    } else {
+      updateLockfile(dependency, {
+        yarn: yarnLockExists,
+        npm: packageLockExists || shrinkwrapExists
+      })
+    }
+
     stageLockfile()
     process.chdir(previousDir)
     return true
