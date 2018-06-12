@@ -46,6 +46,8 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 
 3. Configure your CI to run `greenkeeper-lockfile-update` right before it executes your tests and `greenkeeper-lockfile-upload` right after it executed your tests.
 
+4. If you use a default branch that is **not** `master` then you have to add the environment variable `GK_LOCK_DEFAULT_BRANCH` with the name of your default branch to your CI.
+
 
 ### Example Travis CI configurations
 
@@ -119,6 +121,15 @@ the following environment variables:
 - VCS_ROOT_URL from the vcsroot.<vcsrootid>.url parameter
 - VCS_ROOT_BRANCH from the teamcity.build.branch parameter
 
+## Configuration options
+
+| Environment Variable  | default value | what is it for? |
+| ------------- | ------------- | ------------- |
+| GK_LOCK_YARN_OPTS  | ''  | Add yarn options that greenkeeper should use e.g. `--ignore-engines`  |
+| GK_LOCK_DEFAULT_BRANCH  | 'master'  | Set your default github branch name |
+| GK_LOCK_COMMIT_AMEND  | false  | Lockfile commit should be amended to the regular Greenkeeper commit  |
+| GK_LOCK_COMMIT_NAME  | 'greenkeeperio-bot'  | Set your prefered git commit name  |
+| GK_LOCK_COMMIT_EMAIL  | 'support@greenkeeper.io'  | Set your prefered git commit email  |
 
 ## Contributing a CI Service
 
