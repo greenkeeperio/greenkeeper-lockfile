@@ -80,19 +80,12 @@ module.exports = function update () {
       return didChange
     }
 
-    if (dependency.length) {
-      dependency.forEach(dep => {
-        updateLockfile(dep, {
-          yarn: yarnLockExists,
-          npm: packageLockExists || shrinkwrapExists
-        })
-      })
-    } else {
-      updateLockfile(dependency, {
+    dependency.forEach(dep => {
+      updateLockfile(dep, {
         yarn: yarnLockExists,
         npm: packageLockExists || shrinkwrapExists
       })
-    }
+    })
 
     stageLockfile()
     process.chdir(previousDir)
