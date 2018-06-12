@@ -27,6 +27,7 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 * ✅ Codeship _Thank you [@selbyk](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/72) 👏_
 * ✅ Semaphore _Thank you [@cbothner](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/121) 👏_
 * ✅ TeamCity _Thank you [@tagoro9](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/131) & [@dbrockman](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/106) 👏_
+* ✅ Drone.io _Thank you [@donny-dont](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/141) 👏_
 
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
@@ -38,29 +39,36 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 
 ## Setup
 
-**First [create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to your CI's environment as `GH_TOKEN`**.
+1. **[create a GitHub access token with push access to your repository](https://github.com/settings/tokens) and make it available to your CI's environment as `GH_TOKEN`**.
+> If you use Travis CI, you may add the token using the [CLI app](https://github.com/travis-ci/travis.rb) as follows: `travis encrypt GH_TOKEN=<token> --add`
 
-If you use Travis CI, you may add the token using the [CLI app](https://github.com/travis-ci/travis.rb) as follows: `travis encrypt GH_TOKEN=<token> --add`
+2. Configure your CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
 
-Configure your CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
-
-Configure your CI to run `greenkeeper-lockfile-update` right before it executes your tests and `greenkeeper-lockfile-upload` right after it executed your tests.
+3. Configure your CI to run `greenkeeper-lockfile-update` right before it executes your tests and `greenkeeper-lockfile-upload` right after it executed your tests.
 
 
-This is how it works on Travis CI for the different package managers.
+### Example Travis CI configurations
 
-### npm
+#### npm
 
 ```yml
 before_install:
 # package-lock.json was introduced in npm@5
 - '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
-- npm install -g greenkeeper-lockfile@1
+- npm install -g greenkeeper-lockfile
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
+🚨 **npm ci** won't work with greenkeeper pull requests because:
+> If dependencies in the package lock do not match those in package.json, npm ci will exit with an error, instead of updating the package lock.
 
-### yarn
+Travis will use `npm ci` by default if lockfiles are present so you'll need to explicitly tell your CI to run `npm install` instead of `npm ci`
+
+```yml
+install: npm install
+```
+
+#### yarn
 
 ```yml
 before_install: yarn global add greenkeeper-lockfile@1

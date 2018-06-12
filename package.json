@@ -59,7 +59,6 @@
     ]
   },
   "scripts": {
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "NODE_ENV=testing standard && jest"
   }
 }
