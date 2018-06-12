@@ -30,16 +30,21 @@ module.exports = function update () {
     config.branchPrefix = 'greenkeeper-'
   }
 
+  if (!info.branchName) {
+    return console.error('No branch details set, so assuming not a Greenkeeper branch')
+  }
+
   if (!info.branchName.startsWith(config.branchPrefix)) {
     return console.error(`'${info.branchName}' is not a Greenkeeper branch`)
   }
 
-  if (!info.correctBuild) {
-    return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
+  if (info.branchName === `${config.branchPrefix}initial`) {
+    // This should be possible to do, Contributions are welcome!
+    return console.error(`'${info.branchName}' is the initial Greenkeeper branch, please update the lockfile manualy`)
   }
 
-  if (!info.branchName) {
-    return console.error('No branch details set, so assuming not a Greenkeeper branch')
+  if (!info.correctBuild) {
+    return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
   }
 
   if (hasLockfileCommit(info)) {
