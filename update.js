@@ -51,8 +51,8 @@ module.exports = function update () {
 
   // make sure that we have a clean working tree
   exec('git stash')
-  exec('git revert -n HEAD')
-  exec('git reset HEAD')
+  // exec('git revert -n HEAD')
+  // exec('git reset HEAD')
   const doCommit = allPackageFiles.reduce((didChange, pkgJson) => {
     const lockfilePath = path.dirname(pkgJson)
     const previousDir = process.cwd()
