@@ -60,5 +60,9 @@
   },
   "scripts": {
     "test": "NODE_ENV=testing standard && jest"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "next"
   }
 }
