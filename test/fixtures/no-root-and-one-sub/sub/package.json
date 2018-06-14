@@ -1,0 +1,6 @@
+{
+  "name": "sub-555x234test",
+  "dependencies": {
+    "my-dependency": "1.0.0"
+  }
+}

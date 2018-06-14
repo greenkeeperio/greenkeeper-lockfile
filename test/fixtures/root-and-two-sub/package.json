@@ -1,0 +1,6 @@
+{
+  "name": "test5555",
+  "dependencies": {
+    "my-dependency": "1.0.0"
+  }
+}

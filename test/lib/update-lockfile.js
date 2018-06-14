@@ -1,7 +1,13 @@
-const stub = require('sinon').stub
-const exec = stub(require('child_process'), 'execSync')
+'use strict'
 
-const updateLockfile = require('../../lib/update-lockfile')
+const stub = require('sinon').stub
+const childProcess = require('child_process')
+const exec = stub(childProcess, 'execSync')
+
+let lockfile = require('../../lib/update-lockfile')
+const updateLockfile = lockfile.updateLockfile
+const stageLockfile = lockfile.stageLockfile
+const commitLockfiles = lockfile.commitLockfiles
 
 const dependency = {
   type: 'dependencies',
@@ -16,6 +22,10 @@ const prepare = () => {
   exec.withArgs('git status --porcelain').returns('1')
 }
 
+afterAll(() => {
+  childProcess.execSync.restore()
+})
+
 const updateMessage = 'chore(package): update lockfile\n\nhttps://npm.im/greenkeeper-lockfile'
 
 test('do shrinkwrap for old npm versions', () => {
@@ -23,6 +33,8 @@ test('do shrinkwrap for old npm versions', () => {
   expect.assertions(1)
   exec.withArgs('npm --version').returns('2.0.0')
   updateLockfile({}, {})
+  stageLockfile()
+  commitLockfiles()
   expect(exec.secondCall.calledWith('npm shrinkwrap')).toBeTruthy()
 })
 
@@ -31,7 +43,9 @@ test('use yarn', () => {
   expect.assertions(1)
   exec.withArgs('npm --version').returns('3.0.0')
   updateLockfile(dependency, { yarn: true })
-  expect(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'")).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(0).calledWith("yarn add 'my-dependency@1.0.0'")).toBeTruthy()
 })
 
 test('yarn no prefix', () => {
@@ -43,7 +57,9 @@ test('yarn no prefix', () => {
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(tildeDep, { yarn: true })
-  expect(exec.thirdCall.calledWith("yarn add 'my-dependency@1.0.0'")).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(0).calledWith("yarn add 'my-dependency@1.0.0'")).toBeTruthy()
 })
 
 test('use yarn with extra arguments from ENV', () => {
@@ -52,7 +68,9 @@ test('use yarn with extra arguments from ENV', () => {
   process.env.GK_LOCK_YARN_OPTS = '--ignore-engines'
   exec.withArgs('npm --version').returns('3.0.0')
   updateLockfile(dependency, { yarn: true })
-  expect(exec.thirdCall.calledWith("yarn add --ignore-engines 'my-dependency@1.0.0'")).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(0).calledWith("yarn add --ignore-engines 'my-dependency@1.0.0'")).toBeTruthy()
   delete process.env.GK_LOCK_YARN_OPTS
 })
 
@@ -62,7 +80,9 @@ test('use npm', () => {
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(dependency, { npm: true })
-  expect(exec.getCall(4).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(2).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
 })
 
 test('use npm v5', () => {
@@ -71,7 +91,9 @@ test('use npm v5', () => {
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').returns('5.0.0')
   updateLockfile(dependency, { npm: true })
-  expect(exec.getCall(4).calledWith('npm5 install -S my-dependency@1.0.0')).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(2).calledWith('npm5 install -S my-dependency@1.0.0')).toBeTruthy()
 })
 
 test('default author', () => {
@@ -79,8 +101,10 @@ test('default author', () => {
   exec.withArgs('npm --version').returns('3.0.0')
   expect.assertions(2)
   updateLockfile(dependency, { npm: true })
-  expect(exec.getCall(9).calledWith('git config user.email "support@greenkeeper.io"')).toBeTruthy()
-  expect(exec.getCall(10).calledWith('git config user.name "greenkeeperio-bot"')).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(7).calledWith('git config user.email "support@greenkeeper.io"')).toBeTruthy()
+  expect(exec.getCall(8).calledWith('git config user.name "greenkeeperio-bot"')).toBeTruthy()
 })
 
 test('customise author', () => {
@@ -90,8 +114,10 @@ test('customise author', () => {
   exec.withArgs('npm --version').returns('3.0.0')
   expect.assertions(2)
   updateLockfile(dependency, { npm: true })
-  expect(exec.getCall(9).calledWith('git config user.email "testbot@test.de"')).toBeTruthy()
-  expect(exec.getCall(10).calledWith('git config user.name "testbot"')).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(7).calledWith('git config user.email "testbot@test.de"')).toBeTruthy()
+  expect(exec.getCall(8).calledWith('git config user.name "testbot"')).toBeTruthy()
   delete process.env.GK_LOCK_COMMIT_EMAIL
   delete process.env.GK_LOCK_COMMIT_NAME
 })
@@ -106,8 +132,10 @@ test('tilde prefix', () => {
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
   updateLockfile(tildeDep, { yarn: true, npm: true })
-  expect(exec.thirdCall.calledWith("yarn add 'my-dependency@~1.0.0'")).toBeTruthy()
-  expect(exec.getCall(4).calledWith('npm install -S --save-prefix="~" my-dependency@1.0.0')).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(0).calledWith("yarn add 'my-dependency@~1.0.0'")).toBeTruthy()
+  expect(exec.getCall(2).calledWith('npm install -S --save-prefix="~" my-dependency@1.0.0')).toBeTruthy()
 })
 
 test('no status', () => {
@@ -115,8 +143,10 @@ test('no status', () => {
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('git status --porcelain').returns('')
   updateLockfile(dependency, { npm: true })
+  stageLockfile()
+  commitLockfiles()
   expect.assertions(1)
-  expect(exec.callCount).toBe(6)
+  expect(exec.callCount).toBe(8)
 })
 
 test('no GK_LOCK_COMMIT_AMEND', () => {
@@ -124,7 +154,9 @@ test('no GK_LOCK_COMMIT_AMEND', () => {
   expect.assertions(1)
   exec.withArgs('npm --version').returns('3.0.0')
   updateLockfile(dependency, {})
-  expect(exec.getCall(9).calledWith(`git commit -m "${updateMessage}"`)).toBeTruthy()
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.getCall(8).calledWith(`git commit -m "${updateMessage}"`)).toBeTruthy()
 })
 
 test('with truthy GK_LOCK_COMMIT_AMEND', () => {
@@ -135,7 +167,10 @@ test('with truthy GK_LOCK_COMMIT_AMEND', () => {
     process.env.GK_LOCK_COMMIT_AMEND = fixture
     exec.withArgs('npm --version').returns('3.0.0')
     updateLockfile(dependency, {})
-    expect(exec.getCall(9).calledWith(`git commit --amend --author="greenkeeperio-bot <support@greenkeeper.io>" --no-edit`)).toBeTruthy()
+    stageLockfile()
+    commitLockfiles()
+    console.log(exec.args)
+    expect(exec.getCall(7).calledWith(`git commit --amend --author="greenkeeperio-bot <support@greenkeeper.io>" --no-edit`)).toBeTruthy()
   })
   delete process.env.GK_LOCK_COMMIT_AMEND
 })
@@ -150,7 +185,9 @@ test('with truthy GK_LOCK_COMMIT_AMEND and GK_LOCK_COMMIT_NAME/EMAIL', () => {
     process.env.GK_LOCK_COMMIT_AMEND = fixture
     exec.withArgs('npm --version').returns('3.0.0')
     updateLockfile(dependency, {})
-    expect(exec.getCall(9).calledWith(`git commit --amend --author="Example Person <example@website.com>" --no-edit`)).toBeTruthy()
+    stageLockfile()
+    commitLockfiles()
+    expect(exec.getCall(7).calledWith(`git commit --amend --author="Example Person <example@website.com>" --no-edit`)).toBeTruthy()
   })
   delete process.env.GK_LOCK_COMMIT_AMEND
   delete process.env.GK_LOCK_COMMIT_NAME
@@ -165,7 +202,9 @@ test('with falsy GK_LOCK_COMMIT_AMEND', () => {
     process.env.GK_LOCK_COMMIT_AMEND = fixture
     exec.withArgs('npm --version').returns('3.0.0')
     updateLockfile(dependency, {})
-    expect(exec.getCall(9).calledWith(`git commit -m "${updateMessage}"`)).toBeTruthy()
+    stageLockfile()
+    commitLockfiles()
+    expect(exec.getCall(8).calledWith(`git commit -m "${updateMessage}"`)).toBeTruthy()
   })
   delete process.env.GK_LOCK_COMMIT_AMEND
 })
