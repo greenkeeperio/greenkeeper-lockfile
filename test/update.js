@@ -47,8 +47,8 @@ test('monorepo: root package', () => {
   logPartial('greenkeeper/my-dependency-1.0.0').throws(logResponses.noMatch)
   expect.assertions(2)
   runUpdateInSubdir('fixtures/root-package')
-  expect(exec.getCall(11).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.callCount).toEqual(20)
+  expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.callCount).toEqual(18)
 })
 
 test('monorepo: no package.json', () => {
@@ -63,9 +63,9 @@ test('monorepo: root and one sub package', () => {
   logPartial('greenkeeper/my-dependency-1.0.0').throws(logResponses.noMatch)
   expect.assertions(3)
   runUpdateInSubdir('fixtures/root-and-one-sub')
-  expect(exec.getCall(11).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.getCall(18).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.callCount).toEqual(27)
+  expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.getCall(16).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.callCount).toEqual(25)
 })
 
 test('monorepo: root and two sub package', () => {
@@ -73,10 +73,10 @@ test('monorepo: root and two sub package', () => {
   logPartial('greenkeeper/my-dependency-1.0.0').throws(logResponses.noMatch)
   expect.assertions(4)
   runUpdateInSubdir('fixtures/root-and-two-sub')
-  expect(exec.getCall(11).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.getCall(18).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.getCall(25).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.callCount).toEqual(34)
+  expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.getCall(16).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.getCall(23).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.callCount).toEqual(32)
 })
 
 test('monorepo: root and two sub package at different levels', () => {
@@ -84,10 +84,10 @@ test('monorepo: root and two sub package at different levels', () => {
   logPartial('greenkeeper/my-dependency-1.0.0').throws(logResponses.noMatch)
   expect.assertions(4)
   runUpdateInSubdir('fixtures/root-and-two-diff-sub')
-  expect(exec.getCall(11).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.getCall(18).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.getCall(25).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.callCount).toEqual(34)
+  expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.getCall(16).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.getCall(23).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.callCount).toEqual(32)
 })
 
 test('monorepo: no root and one sub package', () => {
@@ -95,8 +95,8 @@ test('monorepo: no root and one sub package', () => {
   logPartial('greenkeeper/my-dependency-1.0.0').throws(logResponses.noMatch)
   expect.assertions(2)
   runUpdateInSubdir('fixtures/no-root-and-one-sub')
-  expect(exec.getCall(11).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.callCount).toEqual(20)
+  expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.callCount).toEqual(18)
 })
 
 test('monorepo: no root and two sub package', () => {
@@ -104,9 +104,9 @@ test('monorepo: no root and two sub package', () => {
   logPartial('greenkeeper/my-dependency-1.0.0').throws(logResponses.noMatch)
   expect.assertions(3)
   runUpdateInSubdir('fixtures/no-root-and-two-sub')
-  expect(exec.getCall(11).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.getCall(18).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.callCount).toEqual(27)
+  expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.getCall(16).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.callCount).toEqual(25)
 })
 
 test('monorepo: no root and two sub package at different levels', () => {
@@ -114,7 +114,7 @@ test('monorepo: no root and two sub package at different levels', () => {
   logPartial('greenkeeper/my-dependency-1.0.0').throws(logResponses.noMatch)
   expect.assertions(3)
   runUpdateInSubdir('fixtures/no-root-and-two-diff-sub')
-  expect(exec.getCall(11).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.getCall(18).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
-  expect(exec.callCount).toEqual(27)
+  expect(exec.getCall(9).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.getCall(16).calledWith('npm install -S my-dependency@1.0.0')).toBeTruthy()
+  expect(exec.callCount).toEqual(25)
 })
