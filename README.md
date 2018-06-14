@@ -1,4 +1,4 @@
-# greenkeeper-lockfile
+# Greenkeeper Lockfile
 
 After [enabling Greenkeeper for your repository](https://github.com/integration/greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
 
@@ -10,6 +10,21 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 [![devDependency Status](https://david-dm.org/greenkeeperio/greenkeeper-lockfile/master/dev-status.svg)](https://david-dm.org/greenkeeperio/greenkeeper-lockfile/master#info=devDependencies)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
+- [Greenkeeper Lockfile](#greenkeeper-lockfile)
+	- [Package Managers](#package-managers)
+	- [CI Services](#ci-services)
+	- [How does it work](#how-does-it-work)
+	- [Setup](#setup)
+	- [Using Greenkeeper with Monorepos](#using-greenkeeper-with-monorepos)
+	- [Testing multiple node versions](#testing-multiple-node-versions)
+	- [CircleCI workflows](#circleci-workflows)
+	- [TeamCity Setup](#teamcity-setup)
+	- [Configuration options](#configuration-options)
+	- [Contributing a CI Service](#contributing-a-ci-service)
+		- [Environment information](#environment-information)
+		- [Detecting your service](#detecting-your-service)
+		- [Testing your service](#testing-your-service)
 
 ## Package Managers
 
@@ -45,6 +60,8 @@ After [enabling Greenkeeper for your repository](https://github.com/integration/
 2. Configure your CI to use the npm/yarn version you want your lockfiles to be generated with before it installs your dependencies. Install `greenkeeper-lockfile` as well.
 
 3. Configure your CI to run `greenkeeper-lockfile-update` right before it executes your tests and `greenkeeper-lockfile-upload` right after it executed your tests.
+
+_The next Step is only applicable greenkeeper-lockfile version 2 (with monorepo support)_
 
 4. If you use a default branch that is **not** `master` then you have to add the environment variable `GK_LOCK_DEFAULT_BRANCH` with the name of your default branch to your CI.
 
@@ -82,6 +99,12 @@ after_script: greenkeeper-lockfile-upload
 
 To run the lockfile-update script with custom command line arguments, set the `GK_LOCK_YARN_OPTS` environment variable to your needs (set it to `--ignore-engines`, for example). They will be appended to the `yarn add` command.
 
+## Using Greenkeeper with Monorepos
+
+greenkeeper-lockfile 2.0.0 offers support for monorepos. To use it make sure you install `greenkeeper-lockfile@2` explicitly.
+
+If you are using a default branch on Github that is **not** called `master`, please set an Environment Variable `GK_LOCK_DEFAULT_BRANCH` with the name of your default branch in your CI.
+
 ## Testing multiple node versions
 
 It is common to test multiple node versions and therefor have multiple test jobs for one build. In this case the lockfile will automatically be updated for every job, but only uploaded for the first one.
@@ -98,7 +121,7 @@ before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
 
-### CircleCI workflows
+## CircleCI workflows
 
 In order to use `greenkeeper-lockfile` with CircleCI workflows, it must be in the first job run. Use [sequential job execution](https://circleci.com/docs/2.0/workflows/#sequential-job-execution-example) to ensure the job that runs `greenkeeper-lockfile` is always executed first. For example, if `greenkeeper-lockfile` is run in the `lockfile` job, all other jobs in the workflow must require the `lockfile` job to finish before running:
 
@@ -113,7 +136,7 @@ workflows:
             - lockfile
 ```
 
-### TeamCity Setup
+## TeamCity Setup
 
 In order for this to work with TeamCity, the build configuration needs to set
 the following environment variables:
