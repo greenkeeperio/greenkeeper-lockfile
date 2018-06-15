@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`monorepo: no package.json 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+]
+`;
+
+exports[`monorepo: no root and one sub package 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+  "git stash",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
+
+exports[`monorepo: no root and two sub package 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+  "git stash",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
+
+exports[`monorepo: no root and two sub package at different levels 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+  "git stash",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
+
+exports[`monorepo: root and one sub package 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+  "git stash",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
+
+exports[`monorepo: root and two sub package 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+  "git stash",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
+
+exports[`monorepo: root and two sub package at different levels 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+  "git stash",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
+
+exports[`monorepo: root package 1`] = `
+Array [
+  "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
+  "git fetch",
+  "git stash",
+  "git checkout master",
+  "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
+  "git checkout -",
+  "git stash",
+  "npm --version",
+  "npm5 -v",
+  "npm install -S my-dependency@1.0.0",
+  "git status --porcelain",
+  "git add npm-shrinkwrap.json 2>/dev/null || true",
+  "git add package-lock.json 2>/dev/null || true",
+  "git add yarn.lock 2>/dev/null || true",
+  "git config user.email \\"support@greenkeeper.io\\"",
+  "git config user.name \\"greenkeeperio-bot\\"",
+  "git status --porcelain",
+  "git commit -m \\"chore(package): update lockfile
+
+https://npm.im/greenkeeper-lockfile\\"",
+]
+`;
