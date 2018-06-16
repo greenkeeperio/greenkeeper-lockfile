@@ -2,13 +2,6 @@
 
 exports[`customise author 1`] = `
 Array [
-  "npm --version",
-  "npm5 -v",
-  "npm5 install -S my-dependency@1.0.0",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"testbot@test.de\\"",
   "git config user.name \\"testbot\\"",
   "git status --porcelain",
@@ -20,30 +13,6 @@ https://npm.im/greenkeeper-lockfile\\"",
 
 exports[`default author 1`] = `
 Array [
-  "npm --version",
-  "npm5 -v",
-  "npm5 install -S my-dependency@1.0.0",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
-  "git config user.email \\"support@greenkeeper.io\\"",
-  "git config user.name \\"greenkeeperio-bot\\"",
-  "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
-
-https://npm.im/greenkeeper-lockfile\\"",
-]
-`;
-
-exports[`do shrinkwrap for old npm versions 1`] = `
-Array [
-  "npm --version",
-  "npm shrinkwrap",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
@@ -55,11 +24,6 @@ https://npm.im/greenkeeper-lockfile\\"",
 
 exports[`no GK_LOCK_COMMIT_AMEND 1`] = `
 Array [
-  "npm --version",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
@@ -71,96 +35,7 @@ https://npm.im/greenkeeper-lockfile\\"",
 
 exports[`no status 1`] = `
 Array [
-  "npm --version",
-  "npm5 -v",
-  "npm5 install -S my-dependency@1.0.0",
   "git status --porcelain",
-  "git config user.email \\"support@greenkeeper.io\\"",
-  "git config user.name \\"greenkeeperio-bot\\"",
-  "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
-
-https://npm.im/greenkeeper-lockfile\\"",
-]
-`;
-
-exports[`tilde prefix 1`] = `
-Array [
-  "yarn add 'my-dependency@~1.0.0'",
-  "npm5 -v",
-  "npm install -S --save-prefix=\\"~\\" my-dependency@1.0.0",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
-  "git config user.email \\"support@greenkeeper.io\\"",
-  "git config user.name \\"greenkeeperio-bot\\"",
-  "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
-
-https://npm.im/greenkeeper-lockfile\\"",
-]
-`;
-
-exports[`use npm 1`] = `
-Array [
-  "npm --version",
-  "npm5 -v",
-  "npm install -S my-dependency@1.0.0",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
-  "git config user.email \\"support@greenkeeper.io\\"",
-  "git config user.name \\"greenkeeperio-bot\\"",
-  "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
-
-https://npm.im/greenkeeper-lockfile\\"",
-]
-`;
-
-exports[`use npm v5 1`] = `
-Array [
-  "npm --version",
-  "npm5 -v",
-  "npm5 install -S my-dependency@1.0.0",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
-  "git config user.email \\"support@greenkeeper.io\\"",
-  "git config user.name \\"greenkeeperio-bot\\"",
-  "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
-
-https://npm.im/greenkeeper-lockfile\\"",
-]
-`;
-
-exports[`use yarn 1`] = `
-Array [
-  "yarn add 'my-dependency@1.0.0'",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
-  "git config user.email \\"support@greenkeeper.io\\"",
-  "git config user.name \\"greenkeeperio-bot\\"",
-  "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
-
-https://npm.im/greenkeeper-lockfile\\"",
-]
-`;
-
-exports[`use yarn with extra arguments from ENV 1`] = `
-Array [
-  "yarn add --ignore-engines 'my-dependency@1.0.0'",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
@@ -172,11 +47,6 @@ https://npm.im/greenkeeper-lockfile\\"",
 
 exports[`with falsy GK_LOCK_COMMIT_AMEND 1`] = `
 Array [
-  "npm --version",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
@@ -188,11 +58,6 @@ https://npm.im/greenkeeper-lockfile\\"",
 
 exports[`with truthy GK_LOCK_COMMIT_AMEND 1`] = `
 Array [
-  "npm --version",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git commit --amend --author=\\"greenkeeperio-bot <support@greenkeeper.io>\\" --no-edit",
@@ -201,29 +66,8 @@ Array [
 
 exports[`with truthy GK_LOCK_COMMIT_AMEND and GK_LOCK_COMMIT_NAME/EMAIL 1`] = `
 Array [
-  "npm --version",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"Example Person\\"",
   "git commit --amend --author=\\"Example Person <support@greenkeeper.io>\\" --no-edit",
-]
-`;
-
-exports[`yarn no prefix 1`] = `
-Array [
-  "yarn add 'my-dependency@1.0.0'",
-  "git status --porcelain",
-  "git add npm-shrinkwrap.json 2>/dev/null || true",
-  "git add package-lock.json 2>/dev/null || true",
-  "git add yarn.lock 2>/dev/null || true",
-  "git config user.email \\"support@greenkeeper.io\\"",
-  "git config user.name \\"greenkeeperio-bot\\"",
-  "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
-
-https://npm.im/greenkeeper-lockfile\\"",
 ]
 `;

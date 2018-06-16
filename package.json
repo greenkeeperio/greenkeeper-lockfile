@@ -4,16 +4,12 @@
   "version": "0.0.0-development",
   "author": "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
   "bin": {
-    "greenkeeper-lockfile-update": "update.js",
-    "greenkeeper-lockfile-upload": "upload.js",
-    "greenkeeper-shrinkwrap-update": "update.js",
-    "greenkeeper-shrinkwrap-upload": "upload.js"
+    "greenkeeper-lockfile": "bin.js"
   },
   "bugs": {
     "url": "https://github.com/greenkeeperio/greenkeeper-lockfile/issues"
   },
   "dependencies": {
-    "fast-glob": "^2.2.0",
     "greenkeeper-monorepo-definitions": "^1.0.0",
     "lodash": "^4.17.4",
     "require-relative": "^0.8.7",

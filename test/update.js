@@ -6,7 +6,7 @@ const exec = stub(childProcess, 'execSync')
 const process = require('process')
 const path = require('path')
 
-const update = require('../update')
+const update = require('../bin')
 
 process.env.JENKINS_URL = 'true'
 process.env.BUILD_NUMBER = '1'

@@ -95,10 +95,6 @@ before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 ```
 
-**Custom yarn command line arguments**
-
-To run the lockfile-update script with custom command line arguments, set the `GK_LOCK_YARN_OPTS` environment variable to your needs (set it to `--ignore-engines`, for example). They will be appended to the `yarn add` command.
-
 ## Using Greenkeeper with Monorepos
 
 greenkeeper-lockfile 2.0.0 offers support for monorepos. To use it make sure you install `greenkeeper-lockfile@2` explicitly.
@@ -151,7 +147,6 @@ the following environment variables:
 
 | Environment Variable  | default value | what is it for? |
 | ------------- | ------------- | ------------- |
-| GK_LOCK_YARN_OPTS  | ''  | Add yarn options that greenkeeper should use e.g. `--ignore-engines`  |
 | GK_LOCK_DEFAULT_BRANCH  | 'master'  | Set your default github branch name |
 | GK_LOCK_COMMIT_AMEND  | false  | Lockfile commit should be amended to the regular Greenkeeper commit  |
 | GK_LOCK_COMMIT_NAME  | 'greenkeeperio-bot'  | Set your prefered git commit name  |
