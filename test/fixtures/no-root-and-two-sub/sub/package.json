@@ -1,0 +1,6 @@
+{
+  "name": "sub-sttest",
+  "dependencies": {
+    "my-dependency": "1.0.0"
+  }
+}
