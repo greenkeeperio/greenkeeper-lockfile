@@ -88,12 +88,13 @@ module.exports = function update () {
     dependency.forEach(dep => {
       updateLockfile(dep, {
         yarn: yarnLockExists,
-        npm: packageLockExists || shrinkwrapExists,
-        ignoreOutput: info.ignoreOutput
+        npm: packageLockExists || shrinkwrapExists
       })
     })
 
-    stageLockfile()
+    stageLockfile({
+      ignoreOutput: info.ignoreOutput
+    })
     process.chdir(previousDir)
     return true
   }, false)
