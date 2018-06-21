@@ -8,6 +8,7 @@ const fs = require('fs')
 
 const config = require('./lib/config')
 const info = require('./ci-services')()
+const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
 const env = process.env
 
@@ -32,12 +33,12 @@ module.exports = function upload () {
     return console.error('Not running on the initial Greenkeeper branch. Will only run on Greenkeeper branches that update a specific dependency')
   }
 
-  if (!info.firstPush) {
-    return console.error('Only running on first push of a new branch')
-  }
-
   if (!info.uploadBuild) {
     return console.error('Only uploading on one build job')
+  }
+
+  if (hasLockfileCommit(info)) {
+    return console.error('greenkeeper-lockfile already has a commit on this branch')
   }
 
   let remote = `git@github.com:${info.repoSlug}`
@@ -53,7 +54,7 @@ module.exports = function upload () {
   const err = fs.openSync('gk-lockfile-git-push.err', 'w')
 
   exec(`git remote add gk-origin ${remote} || git remote set-url gk-origin ${remote}`)
-  exec(`git push gk-origin HEAD:${info.branchName}`, {
+  exec(`git push${process.env.GK_LOCK_COMMIT_AMEND ? ' --force-with-lease' : ''} gk-origin HEAD:${info.branchName}`, {
     stdio: [
       'pipe',
       'pipe',

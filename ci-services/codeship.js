@@ -40,9 +40,6 @@ module.exports = {
   repoSlug: getRepoSlug(),
   // The name of the current branch
   branchName: env.CI_BRANCH,
-  // Is this the first push on this branch
-  // i.e. the Greenkeeper commit
-  firstPush: shouldUpdate(),
   // Is this a regular build (use tag: ^greenkeeper/)
   correctBuild: shouldUpdate(),
   // Should the lockfile be uploaded from this build (use tag: ^greenkeeper/)

@@ -10,9 +10,10 @@ node_js:
 - '6'
 - '4'
 before_install: npm i -g npm@5
+install: npm install
 before_script: node ./update.js
 after_script: node ./upload.js
-after_success: npm run semantic-release
+after_success: npx semantic-release
 
 # Trigger a push build on master and greenkeeper branches + PRs build on every branches
 # Avoid double build on PRs (See https://github.com/travis-ci/travis-ci/issues/1147)
@@ -20,4 +21,3 @@ branches:
   only:
     - master
     - /^greenkeeper.*$/
-
