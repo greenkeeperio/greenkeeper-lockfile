@@ -14,7 +14,6 @@ function shouldUpdate () {
 module.exports = {
   repoSlug: env.APPVEYOR_REPO_NAME,
   branchName: env.APPVEYOR_REPO_BRANCH,
-  firstPush: shouldUpdate(),
   correctBuild: !env.APPVEYOR_PULL_REQUEST_NUMBER,
   uploadBuild: shouldUpdate(),
   // Used to ignore output when staging the updated lockfile
