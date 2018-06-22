@@ -181,11 +181,9 @@ test('with falsy GK_LOCK_COMMIT_AMEND', () => {
 
 test('with truthy ignoreOutput', () => {
   prepare()
-  expect.assertions(3)
   exec.withArgs('npm --version').returns('3.0.0')
-  const infoIgnoreOutput = '2>/dev/null || true'
-  updateLockfile(dependency, {ignoreOutput: infoIgnoreOutput})
-  expect(exec.getCall(4).calledWith(`git add npm-shrinkwrap.json ${infoIgnoreOutput}`)).toBeTruthy()
-  expect(exec.getCall(5).calledWith(`git add package-lock.json ${infoIgnoreOutput}`)).toBeTruthy()
-  expect(exec.getCall(6).calledWith(`git add yarn.lock ${infoIgnoreOutput}`)).toBeTruthy()
+  updateLockfile(dependency, {ignoreOutput: '2>/dev/null || true'})
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.args.map(args => args[0])).toMatchSnapshot()
 })
