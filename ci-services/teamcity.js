@@ -21,7 +21,7 @@ function isPullRequest () {
  * Should the lockfile be uploaded
  */
 function shouldUpload () {
-  const re = /^(chore|fix)\(package\): update lockfile|([^ ]+ to version).*$/mi
+  const re = /^(chore|fix)\(package\): update lockfiles*|([^ ]+ to version).*$/mi
   const lastCommitMessage = gitHelpers.getLastCommitMessage()
   return re.test(lastCommitMessage)
 }
