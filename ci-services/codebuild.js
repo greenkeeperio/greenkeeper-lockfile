@@ -13,10 +13,6 @@ const buildConfig = path.join(env.PWD, '.gk-codebuild-config.json')
  * so we have to save them for the second run
  * (since we will be modifying the source here and e.g. the number of commits will change)
  *
- * CodeBuild will create two builds per PR, one for the branch and one for the PR.
- * The branch one is run in a detached head state, which is used do determine the info.
- * (getNumberOfCommitsOnBranch() will return 0 on the build for the PR).
- *
  * @returns {{branchName: String, numberOfCommits: Number}}
  */
 function getCodeBuildInfo () {
@@ -25,14 +21,8 @@ function getCodeBuildInfo () {
     return require(buildConfig)
   }
   const branchName = gitHelpers.getBranch()
-  const numberOfCommits = gitHelpers.getNumberOfCommitsOnBranch(branchName)
-  if (numberOfCommits === 0 && /^pr\/[0-9]+/.test(env.CODEBUILD_SOURCE_VERSION)) {
-    console.log('greenkeeper-lockfile:codebuild', 'No commits detected for this build.')
-    console.log('greenkeeper-lockfile:codebuild', 'This is expected for the PR build.')
-  }
   const config = {
-    branchName,
-    numberOfCommits
+    branchName
   }
   fs.writeFileSync(buildConfig, JSON.stringify(config), 'utf-8')
   return config
@@ -45,9 +35,6 @@ module.exports = {
   repoSlug: gitHelpers.getRepoSlug(env.CODEBUILD_SOURCE_REPO_URL),
   // The name of the current branch
   branchName: config.branchName,
-  // Is this the first push on this branch
-  // i.e. the Greenkeeper commit
-  firstPush: config.numberOfCommits === 1,
   // Is this a regular build
   correctBuild: /^greenkeeper\/.+/.test(config.branchName),
   // Should the lockfile be uploaded from this build
