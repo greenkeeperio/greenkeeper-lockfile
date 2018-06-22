@@ -4,41 +4,55 @@
 
 const exec = require('child_process').execSync
 const url = require('url')
-const fs = require('fs')
 
 const config = require('./lib/config')
-const info = require('./ci-services')()
 const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
 
+const lockfile = require('./lib/update-lockfile')
+const stageLockfiles = lockfile.stageLockfiles
+const commitLockfiles = lockfile.commitLockfiles
+
+const ci = require('./ci-services')
 const env = process.env
 
-module.exports = function upload () {
-  if (!info.branchName) {
-    return console.error('No branch details set, so assuming not a Greenkeeper branch')
-  }
+module.exports = function update () {
+  const info = ci()
 
   // legacy support
   if (config.branchPrefix === 'greenkeeper/' && info.branchName.startsWith('greenkeeper-')) {
     config.branchPrefix = 'greenkeeper-'
   }
 
+  if (!info.branchName) {
+    return console.error('No branch details set, so assuming not a Greenkeeper branch')
+  }
+
   if (!info.branchName.startsWith(config.branchPrefix)) {
     return console.error(`'${info.branchName}' is not a Greenkeeper branch`)
   }
 
-  const isInitial = info.branchName === (config.branchPrefix + 'initial') ||
-    info.branchName === (config.branchPrefix + 'update-all')
-
-  if (isInitial) {
-    return console.error('Not running on the initial Greenkeeper branch. Will only run on Greenkeeper branches that update a specific dependency')
+  if (info.branchName === `${config.branchPrefix}initial`) {
+    // This should be possible to do, Contributions are welcome!
+    return console.error(`'${info.branchName}' is the initial Greenkeeper branch, please update the lockfile manualy`)
   }
 
-  if (!info.uploadBuild) {
-    return console.error('Only uploading on one build job')
+  if (!info.correctBuild) {
+    return console.error('This build should not update the lockfile. It could be a PR, not a branch build.')
   }
 
   if (hasLockfileCommit(info)) {
     return console.error('greenkeeper-lockfile already has a commit on this branch')
+  }
+
+  stageLockfiles()
+  commitLockfiles()
+
+  if (env.NODE_ENV && env.NODE_ENV !== 'test') {
+    console.log('Lockfiles updated')
+  }
+
+  if (!info.uploadBuild) {
+    return console.error('Only uploading on one build job')
   }
 
   let remote = `git@github.com:${info.repoSlug}`
@@ -51,16 +65,7 @@ module.exports = function upload () {
     remote = url.format(urlParsed)
   }
 
-  const err = fs.openSync('gk-lockfile-git-push.err', 'w')
-
   exec(`git remote add gk-origin ${remote} || git remote set-url gk-origin ${remote}`)
-  exec(`git push${process.env.GK_LOCK_COMMIT_AMEND ? ' --force-with-lease' : ''} gk-origin HEAD:${info.branchName}`, {
-    stdio: [
-      'pipe',
-      'pipe',
-      err
-    ]
-  })
+  exec(`git push${env.GK_LOCK_COMMIT_AMEND ? ' --force-with-lease' : ''} gk-origin HEAD:${info.branchName}`)
 }
-
 if (require.main === module) module.exports()
