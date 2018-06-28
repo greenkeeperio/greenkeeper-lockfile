@@ -117,6 +117,7 @@ node_js:
 before_install:
 - npm install -g npm
 - npm install -g greenkeeper-lockfile@1
+install: npm install
 before_script: greenkeeper-lockfile-update
 # Only the node version 6 job will upload the lockfile
 after_script: greenkeeper-lockfile-upload
