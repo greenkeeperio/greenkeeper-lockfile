@@ -54,7 +54,7 @@ module.exports = function upload () {
   const err = fs.openSync('gk-lockfile-git-push.err', 'w')
 
   exec(`git remote add gk-origin ${remote} || git remote set-url gk-origin ${remote}`)
-  exec(`git push${process.env.GK_LOCK_COMMIT_AMEND ? ' --force-with-lease' : ''} gk-origin HEAD:${info.branchName}`, {
+  exec(`git push${process.env.GK_LOCK_COMMIT_AMEND ? ` --force-with-lease=${info.branchName}:origin/${info.branchName}` : ''} gk-origin HEAD:${info.branchName}`, {
     stdio: [
       'pipe',
       'pipe',
