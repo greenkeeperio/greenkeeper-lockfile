@@ -127,7 +127,7 @@ after_script: greenkeeper-lockfile-upload
 ## CircleCI workflows
 
 In order to use `greenkeeper-lockfile` with CircleCI workflows, `greenkeeper-lockfile-update` must be run in the first job, while `greenkeeper-lockfile-upload` can be run in any job.
-If you want to upload the lockfile in a later job, the `.git` directory needs to be saved to cache after updating, and restored before uploading. ([example workflow config](https://github.com/patkub/test-greenkeeper-lockfile-circleci-first-push/blob/master/.circleci/config.yml))
+If you want to upload the lockfile in a later job, the `.git` directory needs to be saved to cache after updating, and restored before uploading. ([example workflow config](https://github.com/patkub/test-gk-lock-circleci/blob/master/.circleci/config.yml))
 Use [sequential job execution](https://circleci.com/docs/2.0/workflows/#sequential-job-execution-example) to ensure the job that runs `greenkeeper-lockfile-update` is always executed first.
 For example, if `greenkeeper-lockfile-update` is run in the `lockfile` job, all other jobs in the workflow must require the `lockfile` job to finish before running:
 
