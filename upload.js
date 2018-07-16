@@ -37,10 +37,6 @@ module.exports = function upload () {
     return console.error('Only uploading on one build job')
   }
 
-  if (hasLockfileCommit(info)) {
-    return console.error('greenkeeper-lockfile already has a commit on this branch')
-  }
-
   let remote = `git@github.com:${info.repoSlug}`
   if (info.gitUrl) remote = info.gitUrl
 
@@ -51,9 +47,13 @@ module.exports = function upload () {
     remote = url.format(urlParsed)
   }
 
-  const err = fs.openSync('gk-lockfile-git-push.err', 'w')
-
   exec(`git remote add gk-origin ${remote} || git remote set-url gk-origin ${remote}`)
+
+  if (hasLockfileCommit(info)) {
+    return console.error('greenkeeper-lockfile already has a commit on this branch')
+  }
+
+  const err = fs.openSync('gk-lockfile-git-push.err', 'w')
   exec(`git push${process.env.GK_LOCK_COMMIT_AMEND ? ` --force-with-lease=${info.branchName}:origin/${info.branchName}` : ''} gk-origin HEAD:${info.branchName}`, {
     stdio: [
       'pipe',
