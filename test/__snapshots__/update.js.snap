@@ -212,6 +212,8 @@ https://npm.im/greenkeeper-lockfile\\"",
 
 exports[`monorepo: root package 1`] = `
 Array [
+  "git config remote.origin.url",
+  "git config remote.origin.url",
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
   "git fetch gk-origin",
   "git stash",
