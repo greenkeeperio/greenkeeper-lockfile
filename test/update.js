@@ -21,7 +21,7 @@ function testFixture (fixtureDirectory, noLog) {
   exec.withArgs('git status --porcelain').returns('1')
   exec.withArgs('npm --version').returns('3.0.0')
   exec.withArgs('npm5 -v').throws()
-  if (!noLog) exec.withArgs(`git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'`).throws({status: 1, stdout: '', stderr: ''})
+  if (!noLog) exec.withArgs(`git show --oneline --name-only origin/greenkeeper/my-dependency-1.0.0...master | grep -E '(package-lock.json|npm-shrinkwrap.json|yarn.lock)'`).throws({status: 1, stdout: '', stderr: ''})
 
   process.chdir(path.join(__dirname, fixtureDirectory))
   update()
