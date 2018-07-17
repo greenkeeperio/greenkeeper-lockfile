@@ -3,7 +3,7 @@
 exports[`monorepo: no package.json 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
@@ -14,7 +14,7 @@ Array [
 exports[`monorepo: no root and one sub package 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
@@ -39,7 +39,7 @@ https://npm.im/greenkeeper-lockfile\\"",
 exports[`monorepo: no root and two sub package 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
@@ -71,7 +71,7 @@ https://npm.im/greenkeeper-lockfile\\"",
 exports[`monorepo: no root and two sub package at different levels 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
@@ -103,7 +103,7 @@ https://npm.im/greenkeeper-lockfile\\"",
 exports[`monorepo: root and one sub package 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
@@ -135,7 +135,7 @@ https://npm.im/greenkeeper-lockfile\\"",
 exports[`monorepo: root and two sub package 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
@@ -174,7 +174,7 @@ https://npm.im/greenkeeper-lockfile\\"",
 exports[`monorepo: root and two sub package at different levels 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
@@ -213,7 +213,7 @@ https://npm.im/greenkeeper-lockfile\\"",
 exports[`monorepo: root package 1`] = `
 Array [
   "git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*",
-  "git fetch",
+  "git fetch gk-origin",
   "git stash",
   "git checkout master",
   "git log --oneline origin/greenkeeper/my-dependency-1.0.0...master | grep 'chore(package): update lockfile'",
