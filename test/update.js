@@ -25,7 +25,18 @@ function testFixture (fixtureDirectory, noLog) {
   if (!noLog) exec.withArgs(`git show --oneline --name-only origin/greenkeeper/my-dependency-1.0.0...master | grep -E '(package-lock.json|npm-shrinkwrap.json|yarn.lock)'`).throws({status: 1, stdout: '', stderr: ''})
 
   process.chdir(path.join(__dirname, fixtureDirectory))
+
+  let oldGhToken = false
+  if (process.env.GH_TOKEN) {
+    oldGhToken = process.env.GH_TOKEN
+    delete process.env.GH_TOKEN
+  }
+
   update()
+
+  if (oldGhToken) {
+    process.env.GH_TOKEN = oldGhToken
+  }
 
   expect(exec.getCalls().map(call => call.args[0])).toMatchSnapshot()
 }
