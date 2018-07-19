@@ -3,14 +3,11 @@
 'use strict'
 
 const exec = require('child_process').execSync
-const url = require('url')
 const fs = require('fs')
 
 const config = require('./lib/config')
 const info = require('./ci-services')()
 const hasLockfileCommit = require('./lib/git-helpers').hasLockfileCommit
-
-const env = process.env
 
 module.exports = function upload () {
   if (!info.branchName) {
@@ -37,19 +34,7 @@ module.exports = function upload () {
     return console.error('Only uploading on one build job')
   }
 
-  let remote = `git@github.com:${info.repoSlug}`
-  if (info.gitUrl) remote = info.gitUrl
-
-  if (env.GH_TOKEN) {
-    if (remote.slice(0, 5) !== 'https') remote = `https://github.com/${info.repoSlug}`
-    const urlParsed = url.parse(remote)
-    urlParsed.auth = env.GH_TOKEN
-    remote = url.format(urlParsed)
-  }
-
-  exec(`git remote add gk-origin ${remote} || git remote set-url gk-origin ${remote}`)
-
-  if (hasLockfileCommit(info)) {
+  if (hasLockfileCommit(info)) { // Note: this has a side-effect that is required for the exec('git push') below
     return console.error('greenkeeper-lockfile already has a commit on this branch')
   }
 
