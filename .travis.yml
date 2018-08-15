@@ -9,7 +9,7 @@ node_js:
 - '7'
 - '6'
 - '4'
-before_install: npm i -g npm@5
+before_install: npm i -g npm@6
 install: npm install
 before_script: node ./update.js
 after_script: node ./upload.js
