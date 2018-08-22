@@ -15,7 +15,7 @@
   "dependencies": {
     "fast-glob": "^2.2.0",
     "greenkeeper-monorepo-definitions": "^1.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "require-relative": "^0.8.7",
     "semver": "^5.3.0"
   },
