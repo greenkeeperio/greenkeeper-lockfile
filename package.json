@@ -13,13 +13,17 @@
     "url": "https://github.com/greenkeeperio/greenkeeper-lockfile/issues"
   },
   "dependencies": {
-    "lodash": "^4.17.4",
+    "fast-glob": "^2.2.0",
+    "greenkeeper-monorepo-definitions": "^1.0.0",
+    "lodash": "^4.17.10",
     "require-relative": "^0.8.7",
     "semver": "^5.3.0"
   },
   "devDependencies": {
-    "semantic-release": "^7.0.1",
-    "standard": "^10.0.2"
+    "jest": "^22.4.2",
+    "semantic-release": "^15.0.3",
+    "sinon": "^6.0.0",
+    "standard": "^11.0.1"
   },
   "engines": {
     "node": ">=4"
@@ -31,8 +35,34 @@
     "type": "git",
     "url": "https://github.com/greenkeeperio/greenkeeper-lockfile.git"
   },
+  "jest": {
+    "testRegex": "/test/.*\\.js$",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverage": true,
+    "testEnvironment": "node"
+  },
+  "standard": {
+    "env": {
+      "jest": true
+    },
+    "globals": [
+      "jest",
+      "expect",
+      "describe",
+      "test",
+      "beforeAll",
+      "beforeEach",
+      "afterAll",
+      "afterEach"
+    ]
+  },
   "scripts": {
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "standard"
+    "test": "NODE_ENV=testing standard && jest"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "next"
   }
 }

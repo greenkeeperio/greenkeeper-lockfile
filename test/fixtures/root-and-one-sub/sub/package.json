@@ -1,0 +1,6 @@
+{
+  "name": "sub-asd444test",
+  "dependencies": {
+    "my-dependency": "1.0.0"
+  }
+}

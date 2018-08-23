@@ -1,7 +1,3 @@
-// @flow
-
-const gitHelpers = require('../lib/git-helpers')
-
 const env = process.env
 
 // http://devcenter.bitrise.io/faq/available-environment-variables/
@@ -21,9 +17,6 @@ module.exports = {
   repoSlug: parseRepoSlug(env.GIT_REPOSITORY_URL),
   // The name of the current branch
   branchName: env.BITRISE_GIT_BRANCH,
-  // Is this the first push on this branch
-  // i.e. the Greenkeeper commit
-  firstPush: gitHelpers.getNumberOfCommitsOnBranch(env.BITRISE_GIT_BRANCH) === 1,
   // Is this a regular build
   correctBuild: env.PR === 'false',
   // Should the lockfile be uploaded from this build

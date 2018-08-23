@@ -1,2 +1,5 @@
+coverage
 node_modules
 *.log
+# jest coverage output
+coverage/
