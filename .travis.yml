@@ -5,8 +5,8 @@ cache:
 notifications:
   email: false
 node_js:
+- '10'
 - '8'
-- '7'
 - '6'
 before_install: npm i -g npm@6
 install: npm install
