@@ -2,6 +2,11 @@
 
 ## 🆕 🙌 ✨ [Greenkeeper](https://github.com/integration/greenkeeper) now has built-in support for updating lockfiles ✨🙌 🆕
 
+Read all about it here: https://blog.greenkeeper.io/announcing-native-lockfile-support-85381a37a0d0
+
+* * *
+
+
 >❗ If you have an `npm-shrinkwrap.json` file or are using **private npm packages** you will still need `greenkeeper-lockfile`.
 
 ---
