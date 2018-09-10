@@ -9,7 +9,6 @@ node_js:
 - '8'
 - '7'
 - '6'
-- '4'
 before_install: npm i -g npm@5
 install: npm install
 before_script: node ./update.js

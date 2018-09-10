@@ -1,7 +1,15 @@
 # Greenkeeper Lockfile
 
-After [enabling Greenkeeper for your repository](https://github.com/integration/greenkeeper) you can use this package to make it work with lockfiles, such as `npm-shrinkwrap.json`, `package-lock.json` or `yarn.lock`.
+## 🆕 🙌 ✨ [Greenkeeper](https://github.com/integration/greenkeeper) now has built-in support for updating lockfiles ✨🙌 🆕
 
+Read all about it here: https://blog.greenkeeper.io/announcing-native-lockfile-support-85381a37a0d0
+
+* * *
+
+
+>❗ If you have an `npm-shrinkwrap.json` file or are using **private npm packages** you will still need `greenkeeper-lockfile`.
+
+---
 ![example screenshot](https://cloud.githubusercontent.com/assets/908178/26423274/57c5c774-40cd-11e7-8e01-fc886f23d265.png)
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/greenkeeperio/greenkeeper-lockfile.svg)](https://greenkeeper.io/)
