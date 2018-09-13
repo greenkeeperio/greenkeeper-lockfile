@@ -12,7 +12,7 @@ Array [
   "git config user.email \\"testbot@test.de\\"",
   "git config user.name \\"testbot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -30,7 +30,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -47,7 +47,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -63,7 +63,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -78,7 +78,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -96,7 +96,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -114,7 +114,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -132,7 +132,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -148,7 +148,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -164,7 +164,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -180,7 +180,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -195,7 +195,7 @@ Array [
   "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
-  "git commit --amend --author=\\"greenkeeperio-bot <support@greenkeeper.io>\\" --no-edit",
+  "git commit --no-verify --amend --author=\\"greenkeeperio-bot <support@greenkeeper.io>\\" --no-edit",
 ]
 `;
 
@@ -208,7 +208,7 @@ Array [
   "git add yarn.lock 2>/dev/null || true",
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"Example Person\\"",
-  "git commit --amend --author=\\"Example Person <support@greenkeeper.io>\\" --no-edit",
+  "git commit --no-verify --amend --author=\\"Example Person <support@greenkeeper.io>\\" --no-edit",
 ]
 `;
 
@@ -222,7 +222,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
@@ -238,7 +238,7 @@ Array [
   "git config user.email \\"support@greenkeeper.io\\"",
   "git config user.name \\"greenkeeperio-bot\\"",
   "git status --porcelain",
-  "git commit -m \\"chore(package): update lockfile
+  "git commit --no-verify -m \\"chore(package): update lockfile
 
 https://npm.im/greenkeeper-lockfile\\"",
 ]
