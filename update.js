@@ -61,7 +61,13 @@ module.exports = function update () {
   const doCommit = allPackageFiles.reduce((didChange, pkgJson) => {
     const lockfilePath = path.dirname(pkgJson)
     const previousDir = process.cwd()
-    process.chdir(lockfilePath)
+
+    try {
+      process.chdir(lockfilePath)
+    } catch (error) {
+      console.error(`can't chdir into lockfile path ${lockfilePath}`)
+      return
+    }
 
     const pkg = relative('./package.json')
 
