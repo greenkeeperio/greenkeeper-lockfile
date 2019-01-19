@@ -22,7 +22,7 @@
   "devDependencies": {
     "jest": "^23.5.0",
     "semantic-release": "^15.0.3",
-    "sinon": "^6.0.0",
+    "sinon": "^7.2.3",
     "standard": "^11.0.1"
   },
   "engines": {
