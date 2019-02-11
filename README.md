@@ -52,6 +52,8 @@ Read all about it here: https://blog.greenkeeper.io/announcing-native-lockfile-s
 * ✅ TeamCity _Thank you [@tagoro9](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/131) & [@dbrockman](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/106) 👏_
 * ✅ Drone.io _Thank you [@donny-dont](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/141) 👏_
 * ✅ AppVeyor _Thank you [@patkub](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/142) 👏_
+* ✅ GitLab CI _Thank you [@baer95](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/227) 👏_
+
 
 * 🙏 [Contribute your own](#contributing-a-ci-service)
 
