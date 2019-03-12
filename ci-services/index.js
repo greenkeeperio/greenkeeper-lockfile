@@ -1,13 +1,12 @@
 'use strict'
 
-const _ = require('lodash')
-
 const tests = require('./tests')
 
 module.exports = () => {
-  const service = _.findKey(tests, test => test())
+  for (const service in tests) {
+    const test = tests[service]
+    if (test()) return require(`./${service}`)
+  }
 
-  if (!service) throw new Error('Could not detect a CI Service.')
-
-  return require(`./${service}`)
+  throw new Error('Could not detect a CI Service.')
 }
