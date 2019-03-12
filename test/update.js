@@ -8,9 +8,11 @@ const path = require('path')
 
 const update = require('../update')
 
-process.env.JENKINS_URL = 'true'
-process.env.BUILD_NUMBER = '1'
-process.env.GIT_BRANCH = 'fooo/greenkeeper/my-dependency-1.0.0'
+const env = process.env
+
+env.JENKINS_URL = 'true'
+env.BUILD_NUMBER = '1'
+env.GIT_BRANCH = 'fooo/greenkeeper/my-dependency-1.0.0'
 
 afterAll(() => {
   childProcess.execSync.restore()
@@ -27,15 +29,15 @@ function testFixture (fixtureDirectory, noLog) {
   process.chdir(path.join(__dirname, fixtureDirectory))
 
   let oldGhToken = false
-  if (process.env.GH_TOKEN) {
-    oldGhToken = process.env.GH_TOKEN
-    delete process.env.GH_TOKEN
+  if (env.GH_TOKEN) {
+    oldGhToken = env.GH_TOKEN
+    delete env.GH_TOKEN
   }
 
   update()
 
   if (oldGhToken) {
-    process.env.GH_TOKEN = oldGhToken
+    env.GH_TOKEN = oldGhToken
   }
 
   expect(exec.getCalls().map(call => call.args[0])).toMatchSnapshot()
