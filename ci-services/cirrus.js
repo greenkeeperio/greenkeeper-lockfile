@@ -10,5 +10,5 @@ module.exports = {
   // Is this a regular build
   correctBuild: env.CIRRUS_PR == null,
   // Should the lockfile be uploaded from this build
-  uploadBuild: env.CI == 'true'
+  uploadBuild: env.CI === 'true'
 }
