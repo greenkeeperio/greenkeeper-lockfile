@@ -16,5 +16,6 @@ module.exports = {
   teamcity: () => env.TEAMCITY_VERSION !== undefined,
   appveyor: () => env.APPVEYOR === 'True' || env.APPVEYOR === 'true',
   gitlab: () => env.GITLAB_CI === 'true',
-  buddyworks: () => env.BUDDY_EXECUTION_ID !== undefined
+  buddyworks: () => env.BUDDY_EXECUTION_ID !== undefined,
+  cirrus: () => env.CIRRUS_CI === 'true'
 }
