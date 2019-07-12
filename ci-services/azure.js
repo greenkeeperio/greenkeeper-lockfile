@@ -16,7 +16,7 @@ function isLockfileUpdate () {
 
 module.exports = {
   repoSlug: env.BUILD_REPOSITORY_NAME,
-  branchName: ! _.isEmpty(env.BUILD_SOURCEBRANCHNAME) ? env.BUILD_SOURCEBRANCHNAME : env.SYSTEM_PULLREQUEST_SOURCEBRANCH,
+  branchName: !_.isEmpty(env.BUILD_SOURCEBRANCHNAME) ? env.BUILD_SOURCEBRANCHNAME : env.SYSTEM_PULLREQUEST_SOURCEBRANCH,
   correctBuild: env.SYSTEM_PULLREQUEST_PULLREQUESTID === '',
   uploadBuild: isLockfileUpdate()
 }
