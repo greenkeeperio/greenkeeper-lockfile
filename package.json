@@ -23,7 +23,7 @@
     "jest": "^23.5.0",
     "semantic-release": "^15.0.3",
     "sinon": "^7.2.3",
-    "standard": "^11.0.1"
+    "standard": "^14.2.0"
   },
   "engines": {
     "node": ">=4"
