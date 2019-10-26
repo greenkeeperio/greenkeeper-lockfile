@@ -17,5 +17,6 @@ module.exports = {
   appveyor: () => env.APPVEYOR === 'True' || env.APPVEYOR === 'true',
   gitlab: () => env.GITLAB_CI === 'true',
   buddyworks: () => env.BUDDY_EXECUTION_ID !== undefined,
-  cirrus: () => env.CIRRUS_CI === 'true'
+  cirrus: () => env.CIRRUS_CI === 'true',
+  generic: () => env.GK_LOCK_GENERIC_CI === 'true'
 }
