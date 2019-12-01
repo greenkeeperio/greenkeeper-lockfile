@@ -13,7 +13,7 @@
     "url": "https://github.com/greenkeeperio/greenkeeper-lockfile/issues"
   },
   "dependencies": {
-    "fast-glob": "^2.2.0",
+    "fast-glob": "^3.1.1",
     "greenkeeper-monorepo-definitions": "^1.0.0",
     "lodash": "^4.17.10",
     "require-relative": "^0.8.7",
