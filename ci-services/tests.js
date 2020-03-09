@@ -17,5 +17,6 @@ module.exports = {
   appveyor: () => env.APPVEYOR === 'True' || env.APPVEYOR === 'true',
   gitlab: () => env.GITLAB_CI === 'true',
   buddyworks: () => env.BUDDY_EXECUTION_ID !== undefined,
+  azure: () => env.TF_BUILD === 'True',
   cirrus: () => env.CIRRUS_CI === 'true'
 }
