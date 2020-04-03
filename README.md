@@ -57,6 +57,7 @@ Read all about it here: https://blog.greenkeeper.io/announcing-native-lockfile-s
 * ✅ Drone.io _Thank you [@donny-dont](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/141) 👏_
 * ✅ AppVeyor _Thank you [@patkub](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/142) 👏_
 * ✅ GitLab CI _Thank you [@baer95](https://github.com/greenkeeperio/greenkeeper-lockfile/pull/227) 👏_
+* ✅ [Any generic CI](#generic-setup) 
 
 
 * 🙏 [Contribute your own](#contributing-a-ci-service)
@@ -163,6 +164,20 @@ the following environment variables:
 
 - VCS_ROOT_URL from the vcsroot.<vcsrootid>.url parameter
 - VCS_ROOT_BRANCH from the teamcity.build.branch parameter
+
+## Generic Setup
+
+A generic CI setup allows greenkeeper-lockfile to function in any CI by getting all the data from environment variables.
+All the environment variables are required; boolean values should be provided as the string "true" or "false".
+
+| **Variable**                     | **Description**                                                                               | **Type** | **Example**                      |
+|----------------------------------|-----------------------------------------------------------------------------------------------|----------|----------------------------------|
+| GK_LOCK_GENERIC_CI               | Set this to `true` to trigger generic CI                                                      | boolean  | true                             |
+| GK_LOCK_GENERIC_CI_REPO_SLUG     | Your GitHub repo slug                                                                         | string   | greenkeeper/greenkeeper-lockfile |
+| GK_LOCK_GENERIC_CI_BRANCH_NAME   | Name of the current branch                                                                    | string   | greenkeeper/lodash-4.0.0         |
+| GK_LOCK_GENERIC_CI_FIRST_PUSH    | Whether this is the first push to the branch or not                                           | boolean  | true                             |
+| GK_LOCK_GENERIC_CI_CORRECT_BUILD | Is this a regular build (not a pull request for example)                                      | boolean  | false                            |
+| GK_LOCK_GENERIC_CI_UPLOAD_BUILD  | Should the lockfile be uploaded from this build (relevant for testing multiple node versions) | boolean  | true                             |
 
 ## Configuration options
 
