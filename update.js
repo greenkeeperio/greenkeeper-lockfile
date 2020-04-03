@@ -74,10 +74,11 @@ module.exports = function update () {
     const shrinkwrapExists = fs.existsSync('./npm-shrinkwrap.json')
     const packageLockExists = fs.existsSync('./package-lock.json')
     const yarnLockExists = fs.existsSync('./yarn.lock')
+    const pnpmShrinkwrapExists = fs.existsSync('./shrinkwrap.yaml')
 
-    if (!(shrinkwrapExists || packageLockExists || yarnLockExists)) {
+    if (!(shrinkwrapExists || packageLockExists || yarnLockExists || pnpmShrinkwrapExists)) {
       console.info(
-        `${pkgJson}: Without either an "npm-shrinkwrap.json", "package-lock.json" or "yarn.lock" file present there is no need to run this script`
+        `${pkgJson}: Without either an "npm-shrinkwrap.json", "package-lock.json", "yarn.lock" or "shrinkwrap.yaml" file present there is no need to run this script`
       )
       process.chdir(previousDir)
       return didChange
@@ -94,7 +95,8 @@ module.exports = function update () {
     dependency.forEach(dep => {
       updateLockfile(dep, {
         yarn: yarnLockExists,
-        npm: packageLockExists || shrinkwrapExists
+        npm: packageLockExists || shrinkwrapExists,
+        pnpm: pnpmShrinkwrapExists
       })
     })
 

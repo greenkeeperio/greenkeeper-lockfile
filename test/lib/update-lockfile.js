@@ -35,6 +35,15 @@ test('do shrinkwrap for old npm versions', () => {
   expect(exec.args.map(args => args[0])).toMatchSnapshot()
 })
 
+test('use pnpm', () => {
+  prepare()
+  exec.withArgs('npm --version').returns('3.0.0')
+  updateLockfile(dependency, { pnpm: true })
+  stageLockfile()
+  commitLockfiles()
+  expect(exec.args.map(args => args[0])).toMatchSnapshot()
+})
+
 test('use yarn', () => {
   prepare()
   exec.withArgs('npm --version').returns('3.0.0')
